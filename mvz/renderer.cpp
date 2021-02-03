@@ -155,7 +155,7 @@ void Renderer::renderEntity(Entity* entity) {
 	Sprite* sprite = entity->sprite;
 	if (sprite != nullptr) {
 		// render the Sprite. Just use the model matrix for the entity since this is a single sprite.
-		renderSprite(sprite, entity->position.x, entity->position.y, entity->scale.x, entity->scale.y, atan2(entity->rotation.y, entity->rotation.x)); 
+		renderSprite(sprite, entity->position.x, entity->position.y, entity->scale.x, entity->scale.y, entity->rotation.z); 
 	}
 
 	// Render all Children (recursively)
