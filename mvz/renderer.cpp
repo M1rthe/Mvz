@@ -88,7 +88,7 @@ float Renderer::updateDeltaTime() {
 	return deltaTime;
 }
 
-void Renderer::renderSprite(Sprite* sprite, float px, float py, float sx, float sy, float rot)
+void Renderer::renderSprite(Sprite * sprite, float px, float py, float sx, float sy, float rot)
 {
 	glm::mat4 viewMatrix = getViewMatrix(); // get from Camera (Camera position and direction)
 
@@ -144,6 +144,26 @@ void Renderer::renderSprite(Sprite* sprite, float px, float py, float sx, float 
 
 	glDisableVertexAttribArray(vertexPositionID);
 	glDisableVertexAttribArray(vertexUVID);
+}
+
+void Renderer::renderScene(Scene * scene) {
+	renderEntity(scene);
+}
+
+void Renderer::renderEntity(Entity* entity) {
+	// Check for Sprites to see if we need to render anything
+	Sprite* sprite = entity->sprite;
+	if (sprite != nullptr) {
+		// render the Sprite. Just use the model matrix for the entity since this is a single sprite.
+		renderSprite(sprite, entity->position.x, entity->position.y, entity->scale.x, entity->scale.y, atan2(entity->rotation.y, entity->rotation.x)); 
+	}
+
+	// Render all Children (recursively)
+	std::vector<Entity*> children = entity->children;
+	std::vector<Entity*>::iterator child;
+	for (child = children.begin(); child != children.end(); child++) {
+		this->renderEntity(*child);
+	}
 }
 
 GLuint Renderer::loadShaders(const std::string& vertex_file_path, const std::string& fragment_file_path)

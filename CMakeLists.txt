@@ -1,6 +1,6 @@
 # CMake entry point
 cmake_minimum_required (VERSION 2.6)
-project (Game)
+project (MyFramework)
 
 if( CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR )
 	message( FATAL_ERROR "Please select another Build Directory ! (and give it a clever name, like 'build')" )
@@ -61,7 +61,7 @@ set(ALL_GRAPHICS_LIBS
 	GLEW_190
 )
 
-# Mvz (libmvz.a)
+# mvz (libmvz.a)
 add_library(mvz # ar rcs libmvz.a
 	mvz/camera.h
 	mvz/camera.cpp
@@ -69,11 +69,20 @@ add_library(mvz # ar rcs libmvz.a
 	mvz/renderer.cpp
 	mvz/sprite.h
 	mvz/sprite.cpp
+	mvz/entity.h
+	mvz/entity.cpp
+	mvz/entityempty.h
+	mvz/entityempty.cpp
+	mvz/scene.h
+	mvz/scene.cpp
+	mvz/vectorx.h
 )
 
-# Game
+# game
 add_executable(game # g++ game/main.cpp -o game
 	game/main.cpp
+	game/mainscene.h
+	game/mainscene.cpp
 )
 target_link_libraries(game # g++ -lmvz
 	mvz

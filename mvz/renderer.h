@@ -9,7 +9,8 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/euler_angles.hpp>
 
-#include <mvz/sprite.h>
+#include <mvz/entity.h>
+#include <mvz/scene.h>
 
 class Renderer
 {
@@ -17,7 +18,9 @@ class Renderer
 		Renderer(unsigned int w, unsigned int h);
 		virtual ~Renderer();
 
-		void renderSprite(Sprite* sprite, float px, float py, float sx, float sy, float rot);
+		void renderSprite(Sprite * sprite, float px, float py, float sx, float sy, float rot);
+		void renderScene(Scene * scene);
+		void renderEntity(Entity * entity);
 		GLFWwindow* window() { return _window; };
 
 		unsigned int width() { return _window_width; };
