@@ -1,11 +1,11 @@
 #include <mvz/scene.h>
 
 Scene::Scene() : Entity() {
-
+	camera = new Camera();
 }
 
 Scene::~Scene() {
-
+	delete camera;
 }
 
 void Scene::updateScene(float deltaTime) {

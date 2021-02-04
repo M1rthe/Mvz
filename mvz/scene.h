@@ -3,12 +3,15 @@
 
 #include <mvz/entity.h>
 #include <mvz/globals.h>
+#include <mvz/camera.h>
 
 class Scene : public Entity {
 
 public:
 	Scene();
 	~Scene();
+
+	Camera* camera;
 
 	void updateScene(float deltaTime);
 

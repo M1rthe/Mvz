@@ -10,14 +10,17 @@ SceneManager::~SceneManager() {
 }
 
 void SceneManager::run(Renderer renderer) {
-	//Update all entities
+	//Deltatime
 	float deltaTime = renderer.updateDeltaTime();
+	//Update entities
 	scenes[globals.currentScene]->updateScene(deltaTime);
 
-	//Render all enities
 	computeMatricesFromInputs(renderer.window(), deltaTime);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	//Render entity sprites
 	renderer.renderScene(scenes[globals.currentScene]);
+
 	glfwSwapBuffers(renderer.window());
 	glfwPollEvents();
 }

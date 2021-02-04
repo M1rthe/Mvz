@@ -65,6 +65,8 @@ set(ALL_GRAPHICS_LIBS
 add_library(mvz # ar rcs libmvz.a
 	mvz/camera.h
 	mvz/camera.cpp
+	mvz/shittycamera.h
+	mvz/shittycamera.cpp
 	mvz/renderer.h
 	mvz/renderer.cpp
 	mvz/sprite.h

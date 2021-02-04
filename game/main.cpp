@@ -25,7 +25,6 @@ int main(void)
 
 	SceneManager* sceneManager = new SceneManager(scenes);
 
-
 	while (glfwGetKey(renderer.window(), GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(renderer.window()) == 0) {
 
 		sceneManager->run(renderer);

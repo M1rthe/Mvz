@@ -5,10 +5,21 @@
 #include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp> // glm::lookAt()
+#include <glm/gtc/matrix_transform.hpp> 
 
-void computeMatricesFromInputs(GLFWwindow* window, float deltaTime);
-glm::mat4 getViewMatrix();
-glm::vec3 getCursor();
+#include <mvz/vectorx.h>
+
+class Camera {
+
+public:
+	Camera();
+	~Camera();
+
+	Vector3 position;
+	Vector3 rotation;
+
+private:
+
+};
 
 #endif

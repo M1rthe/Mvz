@@ -5,7 +5,7 @@
 #include <vector>
 #include <map>
 #include <mvz/renderer.h>
-#include <mvz/camera.h>
+#include <mvz/shittycamera.h>
 #include <mvz/globals.h>
 
 class SceneManager {
