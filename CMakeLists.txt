@@ -73,8 +73,11 @@ add_library(mvz # ar rcs libmvz.a
 	mvz/entity.cpp
 	mvz/entityempty.h
 	mvz/entityempty.cpp
+	mvz/globals.h
 	mvz/scene.h
 	mvz/scene.cpp
+	mvz/scenemanager.h
+	mvz/scenemanager.cpp
 	mvz/vectorx.h
 )
 
@@ -83,6 +86,8 @@ add_executable(game # g++ game/main.cpp -o game
 	game/main.cpp
 	game/mainscene.h
 	game/mainscene.cpp
+	game/menuscene.h
+	game/menuscene.cpp
 )
 target_link_libraries(game # g++ -lmvz
 	mvz

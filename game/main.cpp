@@ -6,33 +6,37 @@
 
 #include <mvz/renderer.h>
 #include <mvz/camera.h>
-#include <mvz/sprite.h>
-#include <mvz/entity.h>
 #include "mainscene.h"
-
+#include "menuscene.h"
+#include <string>
+#include <mvz/scene.h>
+#include <mvz/scenemanager.h>
+#include <map>
+#include <mvz/globals.h>
 
 int main(void)
 {
 	Renderer renderer(1280, 720);
 
-	MainScene* mainscene = new MainScene();
+	std::map<std::string, Scene*> scenes = {
+		{"game", new MainScene()},
+		{"menu", new MenuScene()}
+	};
+
+	SceneManager* sceneManager = new SceneManager(scenes);
+
 
 	while (glfwGetKey(renderer.window(), GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(renderer.window()) == 0) {
 
-		//Update all entities
-		float deltaTime = renderer.updateDeltaTime();
-		mainscene->updateScene(deltaTime);
-
-		//Render all enities
-		computeMatricesFromInputs(renderer.window(), deltaTime);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		renderer.renderScene(mainscene);
-		glfwSwapBuffers(renderer.window());
-		glfwPollEvents();
+		sceneManager->run(renderer);
 
 	} // Check if the ESC key was pressed or the window was closed
 
-	delete mainscene;
+	for (std::map<std::string, Scene*>::iterator it = scenes.begin(); it != scenes.end(); ++it) {
+		delete it->second;
+	}
+
+	delete sceneManager;
 
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();

@@ -2,6 +2,7 @@
 #define SCENE_H
 
 #include <mvz/entity.h>
+#include <mvz/globals.h>
 
 class Scene : public Entity {
 

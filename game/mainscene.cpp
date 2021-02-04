@@ -26,6 +26,7 @@ MainScene::~MainScene() {
 }
 
 void MainScene::update(float deltaTime) {
-	if (pencils->rotation.z > 360) { pencils->rotation.z = 0; }
+	std::cout << "pencils->rotation.z: "<< pencils->rotation.z<<"\n";
+	if (pencils->rotation.z > 6) { pencils->rotation.z = 0; std::cout << "goto menu\n";  globals.currentScene = "menu"; }
 	pencils->rotation.z += 1 * deltaTime;
 }

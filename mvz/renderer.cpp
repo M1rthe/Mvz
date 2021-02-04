@@ -150,7 +150,7 @@ void Renderer::renderScene(Scene * scene) {
 	renderEntity(scene);
 }
 
-void Renderer::renderEntity(Entity* entity) {
+void Renderer::renderEntity(Entity * entity) {
 	// Check for Sprites to see if we need to render anything
 	Sprite* sprite = entity->sprite;
 	if (sprite != nullptr) {
