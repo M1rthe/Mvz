@@ -4,7 +4,7 @@
 #include <vector>
 #include <fstream>
 
-#include <mvz/camera.h>
+#include <mvz/shittycamera.h>
 #include <mvz/renderer.h>
 
 Renderer::Renderer(unsigned int w, unsigned int h)
