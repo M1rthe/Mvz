@@ -15,8 +15,6 @@ public:
 
 private:
 	EntityEmpty* pencils;
-	//Entity* kingkong;
-	//Entity* rgba;
 };
 
 #endif 

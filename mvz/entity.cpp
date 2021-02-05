@@ -13,6 +13,8 @@ Entity::Entity() {
 
 	parent = nullptr;
 	sprite = nullptr;
+
+	_input = Singleton<Input>::instance();
 }
 
 Entity::~Entity() {

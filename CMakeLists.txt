@@ -65,6 +65,8 @@ set(ALL_GRAPHICS_LIBS
 add_library(mvz # ar rcs libmvz.a
 	mvz/camera.h
 	mvz/camera.cpp
+	mvz/button.h
+	mvz/button.cpp
 	mvz/shittycamera.h
 	mvz/shittycamera.cpp
 	mvz/renderer.h
@@ -81,6 +83,10 @@ add_library(mvz # ar rcs libmvz.a
 	mvz/scenemanager.h
 	mvz/scenemanager.cpp
 	mvz/vectorx.h
+	mvz/input.h
+	mvz/input.cpp
+	mvz/singleton.h
+	mvz/shapes.h
 )
 
 # game

@@ -2,8 +2,8 @@
 
 #include <string>
 
-class Globals
-{
+class Globals {
+
 public:
     std::string currentScene;
 
@@ -12,8 +12,7 @@ public:
     Globals(const Globals&) = delete;
     Globals(Globals&&) = delete;
 
-    static Globals& Instance()
-    {
+    static Globals& Instance() {
         static Globals globals;
         return globals;
     }

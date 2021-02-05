@@ -14,22 +14,23 @@ template <class T>
 class Vector_t {
 
 public:
-	
+	//Constructors
 	Vector_t<T>();
 	Vector_t<T>(T xx, T yy);
 	Vector_t<T>(T xx, T yy, T zz);
 	
-	const T calculateDirection(const Vector_t<T>& other) const;
-	const T calculateDistance(const Vector_t<T>& other) const;
+	//const T calculateDirection(const Vector_t<T>& other) const;
+	//const T calculateDistance(const Vector_t<T>& other) const;
 
+	//Destructor
 	virtual ~Vector_t<T>();
 
-
+	//x, y, z
 	T x;
 	T y;
 	T z;
 
-
+	//Operators with Vector
 	Vector_t<T>& operator+=(const Vector_t<T>& rhs);
 	Vector_t<T> operator+(const Vector_t<T>& rhs) const;
 	Vector_t<T>& operator-=(const Vector_t<T>& rhs);
@@ -39,6 +40,10 @@ public:
 	Vector_t<T>& operator/=(const Vector_t<T>& rhs);
 	Vector_t<T> operator/(const Vector_t<T>& rhs) const;
 
+	bool operator==(const Vector_t<T>& other) const;
+	bool operator!=(const Vector_t<T>& other) const;
+
+	//Operators with T
 	Vector_t<T>& operator+=(const T rhs);
 	Vector_t<T> operator+(const T rhs) const;
 	Vector_t<T>& operator-=(const T rhs);
@@ -47,44 +52,42 @@ public:
 	Vector_t<T> operator*(const T rhs) const;
 	Vector_t<T>& operator/=(const T rhs);
 	Vector_t<T> operator/(const T rhs) const;
-
-	bool operator==(const Vector_t<T>& other) const;
-	bool operator!=(const Vector_t<T>& other) const;
 };
 
+//Vector: int, float, double
 typedef Vector_t<int> VectorI;
 typedef Vector_t<float> VectorF;
 typedef Vector_t<double> VectorD;
-
+//Default Vector: float
 typedef VectorF Vector;
 
+//Vector2: int, float, double
 typedef Vector_t<int> Vector2I;
 typedef Vector_t<float> Vector2F;
 typedef Vector_t<double> Vector2D;
-
+//Default Vector2: float
 typedef Vector2F Vector2;
 
+//Vector3: int, float, double
 typedef Vector_t<int> Vector3I;
 typedef Vector_t<float> Vector3F;
 typedef Vector_t<double> Vector3D;
-
+//Default Vector3: float
 typedef Vector3F Vector3;
 
-
+//Constructors
 template <class T>
 Vector_t<T>::Vector_t() {
 	x = 0;
 	y = 0;
 	z = 0;
 }
-
 template <class T>
 Vector_t<T>::Vector_t(T xx, T yy) {
 	x = xx;
 	y = yy;
 	z = 0;
 }
-
 template <class T>
 Vector_t<T>::Vector_t(T xx, T yy, T zz) {
 	x = xx;
@@ -92,6 +95,7 @@ Vector_t<T>::Vector_t(T xx, T yy, T zz) {
 	z = zz;
 }
 
+/*
 template <class T>
 const T Vector_t<T>::calculateDirection(const Vector_t<T>& other) const {
 	
@@ -110,12 +114,15 @@ const T Vector_t<T>::calculateDistance(const Vector_t<T>& other) const {
 
 	return distance;
 }
+*/
 
+//Destructor
 template <class T>
 Vector_t<T>::~Vector_t() {
 
 }
 
+//Operators with Vector
 template <class T>
 Vector_t<T>& Vector_t<T>::operator+=(const Vector_t<T>& rhs) {
 	x += rhs.x;
@@ -123,26 +130,21 @@ Vector_t<T>& Vector_t<T>::operator+=(const Vector_t<T>& rhs) {
 	z += rhs.z;
 	return *this;
 }
-
 template <class T>
 Vector_t<T> Vector_t<T>::operator+(const Vector_t<T>& rhs) const {
 	return Vector_t<T>(x + rhs.x, y + rhs.y, z + rhs.z);
 }
-
 template <class T>
-Vector_t<T>& Vector_t<T>::operator-=(const Vector_t<T>& rhs)
-{
+Vector_t<T>& Vector_t<T>::operator-=(const Vector_t<T>& rhs) {
 	x -= rhs.x;
 	y -= rhs.y;
 	z -= rhs.z;
 	return *this;
 }
-
 template <class T>
 Vector_t<T> Vector_t<T>::operator-(const Vector_t<T>& rhs) const {
 	return Vector_t<T>(x + -rhs.x, y - rhs.y, z - rhs.z);
 }
-
 template <class T>
 Vector_t<T>& Vector_t<T>::operator*=(const Vector_t<T>& rhs) {
 	x *= rhs.x;
@@ -150,28 +152,36 @@ Vector_t<T>& Vector_t<T>::operator*=(const Vector_t<T>& rhs) {
 	z *= rhs.z;
 	return *this;
 }
-
 template <class T>
 Vector_t<T> Vector_t<T>::operator*(const Vector_t<T>& rhs) const {
 	return Vector_t<T>(x * rhs.x, y * rhs.y, z * rhs.z);
 }
-
 template <class T>
-Vector_t<T>& Vector_t<T>::operator/=(const Vector_t<T>& rhs)
-{
-	// TODO: check for division by 0?
+Vector_t<T>& Vector_t<T>::operator/=(const Vector_t<T>& rhs) {
+	if (rhs.x == 0) { x = 0; }
+	if (rhs.y == 0) { y = 0; }
+	if (rhs.z == 0) { z = 0; }
 	x /= rhs.x;
 	y /= rhs.y;
 	z /= rhs.z;
 	return *this;
 }
-
 template <class T>
 Vector_t<T> Vector_t<T>::operator/(const Vector_t<T>& rhs) const {
-	// TODO: check for division by 0?
+	if (rhs == 0) { x = 0; y = 0; z = 0; }
 	return Vector_t<T>(x / rhs.x, y / rhs.y, z / rhs.z);
 }
 
+template <class T>
+bool Vector_t<T>::operator==(const Vector_t<T>& other) const {
+	return (x == other.x && y == other.y && z == other.z);
+}
+template <class T>
+bool Vector_t<T>::operator!=(const Vector_t<T>& other) const {
+	return !(*this == other);
+}
+
+//Operators with T
 template <class T>
 Vector_t<T>& Vector_t<T>::operator+=(const T rhs) {
 	x += rhs;
@@ -179,12 +189,10 @@ Vector_t<T>& Vector_t<T>::operator+=(const T rhs) {
 	z += rhs;
 	return *this;
 }
-
 template <class T>
 Vector_t<T> Vector_t<T>::operator+(const T rhs) const {
 	return Vector_t<T>(x + rhs, y + rhs, z + rhs);
 }
-
 template <class T>
 Vector_t<T>& Vector_t<T>::operator-=(const T rhs) {
 	x -= rhs;
@@ -192,12 +200,10 @@ Vector_t<T>& Vector_t<T>::operator-=(const T rhs) {
 	z -= rhs;
 	return *this;
 }
-
 template <class T>
 Vector_t<T> Vector_t<T>::operator-(const T rhs) const {
 	return Vector_t<T>(x - rhs, y - rhs, z - rhs);
 }
-
 template <class T>
 Vector_t<T>& Vector_t<T>::operator*=(const T rhs) {
 	x *= rhs;
@@ -205,44 +211,32 @@ Vector_t<T>& Vector_t<T>::operator*=(const T rhs) {
 	z *= rhs;
 	return *this;
 }
-
 template <class T>
 Vector_t<T> Vector_t<T>::operator*(const T rhs) const {
 	return Vector_t<T>(x * rhs, y * rhs, z * rhs);
 }
-
 template <class T>
 Vector_t<T>& Vector_t<T>::operator/=(const T rhs) {
-	// TODO: check for division by 0?
+	if (rhs == 0) { x = 0; y = 0; z = 0; }
 	x /= rhs;
 	y /= rhs;
 	z /= rhs;
 	return *this;
 }
-
 template <class T>
 Vector_t<T> Vector_t<T>::operator/(const T rhs) const {
-	// TODO: check for division by 0?
+	if (rhs.x == 0) { x = 0; }
+	if (rhs.y == 0) { y = 0; }
+	if (rhs.z == 0) { z = 0; }
 	return Vector_t<T>(x / rhs, y / rhs, z / rhs);
 }
 
-template <class T>
-bool Vector_t<T>::operator==(const Vector_t<T>& other) const {
-	return (x == other.x && y == other.y && z == other.z);
-}
-
-template <class T>
-bool Vector_t<T>::operator!=(const Vector_t<T>& other) const {
-	return !(*this == other);
-}
-
-
+//std stuff
 template <class T>
 std::ostream& operator<<(std::ostream& stream, Vector_t<T> ob) {
 	stream << "(" << ob.x << ", " << ob.y << ", " << ob.z << ")";
 	return stream;
 }
-
 template <class T>
 std::istream& operator>>(std::istream& stream, Vector_t<T>& ob) {
 	stream >> ob.x >> ob.y >> ob.z;

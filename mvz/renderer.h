@@ -12,37 +12,39 @@
 #include <mvz/entity.h>
 #include <mvz/scene.h>
 
-class Renderer
-{
-	public:
-		Renderer(unsigned int w, unsigned int h);
-		virtual ~Renderer();
+class Renderer {
 
-		void renderSprite(Sprite * sprite, float px, float py, float sx, float sy, float rot);
-		void renderScene(Scene * scene);
-		void renderEntity(Entity * entity);
-		GLFWwindow* window() { return _window; };
+public:
 
-		unsigned int width() { return _window_width; };
-		unsigned int height() { return _window_height; };
+	Renderer(unsigned int w, unsigned int h);
+	virtual ~Renderer();
 
-		float updateDeltaTime();
+	void renderSprite(Sprite * sprite, float px, float py, float sx, float sy, float rot);
+	void renderScene(Scene * scene);
+	void renderEntity(Entity * entity);
+	GLFWwindow* window() { return _window; };
 
-	private:
-		int init();
+	unsigned int width() { return window_width; };
+	unsigned int height() { return window_height; };
 
-		GLFWwindow* _window;
-		unsigned int _window_width;
-		unsigned int _window_height;
+	float updateDeltaTime();
 
-		GLuint loadShaders(
-			const std::string& vertex_file_path,
-			const std::string& fragment_file_path
-		);
+private:
 
-		GLuint _programID;
+	int init();
 
-		glm::mat4 _projectionMatrix;
+	GLFWwindow* _window;
+	unsigned int window_width;
+	unsigned int window_height;
+
+	GLuint loadShaders(
+		const std::string& vertex_file_path,
+		const std::string& fragment_file_path
+	);
+
+	GLuint programID;
+
+	glm::mat4 projectionMatrix;
 };
 
 #endif /* RENDERER_H */

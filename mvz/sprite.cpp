@@ -8,18 +8,17 @@
 
 #include <mvz/sprite.h>
 
-
 Sprite::Sprite(const std::string& imagepath)
 {
-	// these will be set correctly in loadTGA()
+	//These will be set correctly in loadTGA()
 	_width = 0;
 	_height = 0;
 
-	// Load image as texture
+	//Load image as texture
 	_texture = loadTGA(imagepath);
 
-	// Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
-	// A sprite has 1 face (quad) with 2 triangles each, so this makes 1*2=2 triangles, and 2*3 vertices
+	//Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
+	//A sprite has 1 face (quad) with 2 triangles each, so this makes 1*2=2 triangles, and 2*3 vertices
 	GLfloat g_vertex_buffer_data[18] = {
 		 0.5f * _width, -0.5f * _height, 0.0f,
 		-0.5f * _width, -0.5f * _height, 0.0f,
@@ -30,7 +29,7 @@ Sprite::Sprite(const std::string& imagepath)
 		 0.5f * _width, -0.5f * _height, 0.0f
 	};
 
-	// Two UV coordinates for each vertex.
+	//Two UV coordinates for each vertex.
 	GLfloat g_uv_buffer_data[12] = {
 		1.0f, 1.0f,
 		0.0f, 1.0f,
@@ -50,15 +49,14 @@ Sprite::Sprite(const std::string& imagepath)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_uv_buffer_data), g_uv_buffer_data, GL_STATIC_DRAW);
 }
 
-Sprite::~Sprite()
-{
+Sprite::~Sprite() {
 	glDeleteBuffers(1, &_vertexbuffer);
 	glDeleteBuffers(1, &_uvbuffer);
 	glDeleteTextures(1, &_texture); // texture created in loadTGA() with glGenTextures()
 }
 
-GLuint Sprite::loadTGA(const std::string& imagepath)
-{
+GLuint Sprite::loadTGA(const std::string& imagepath) {
+
 	std::cout << "Loading TGA: " << imagepath << std::endl;
 
 	FILE *file;
@@ -113,21 +111,21 @@ GLuint Sprite::loadTGA(const std::string& imagepath)
 	// Create a buffer
 	data = new unsigned char [imagesize];
 
-	// Read the actual data from the file into the buffer
+	//Read the actual data from the file into the buffer
 	if (!fread(data, 1, imagesize, file)) return 0;
 
-	// Everything is in memory now, close the file
+	//Everything is in memory now, close the file
 	fclose(file);
 
-	// Create one OpenGL texture
-	// Be sure to also delete it from where you called this with glDeleteTextures()
+	//Create one OpenGL texture
+	//Be sure to also delete it from where you called this with glDeleteTextures()
 	GLuint textureID;
 	glGenTextures(1, &textureID);
 
-	// "Bind" the newly created texture : all future texture functions will modify this texture
+	//"Bind" the newly created texture : all future texture functions will modify this texture
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
-	// filter the Texture
+	//Filter the Texture
 	unsigned char filter = 1;
 	switch (filter) {
 		case 0:
@@ -159,12 +157,12 @@ GLuint Sprite::loadTGA(const std::string& imagepath)
 			break;
 	}
 
-	// wrapping
-	// GL_REPEAT, GL_MIRRORED_REPEAT or GL_CLAMP_TO_EDGE
+	//Wrapping
+	//GL_REPEAT, GL_MIRRORED_REPEAT or GL_CLAMP_TO_EDGE
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-	// handle transparency and grayscale and give the image to OpenGL
+	//Handle transparency and grayscale and give the image to OpenGL
 	switch (bitdepth) {
 		case 4:
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -182,9 +180,9 @@ GLuint Sprite::loadTGA(const std::string& imagepath)
 			break;
 	}
 
-	// OpenGL has now copied the data. Free our own version
+	//OpenGL has now copied the data. Free our own version
 	delete [] data;
 
-	// Return the ID of the texture we just created
+	//Return the ID of the texture we just created
 	return textureID;
 }

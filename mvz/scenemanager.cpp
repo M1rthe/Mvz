@@ -2,7 +2,7 @@
 
 SceneManager::SceneManager(std::map<std::string, Scene*> scenesP) {
 	scenes = scenesP;
-	globals.currentScene = "game";
+	globals.currentScene = "menu";
 }
 
 SceneManager::~SceneManager() {
@@ -10,10 +10,15 @@ SceneManager::~SceneManager() {
 }
 
 void SceneManager::run(Renderer renderer) {
+
 	//Deltatime
 	float deltaTime = renderer.updateDeltaTime();
+
 	//Update entities
 	scenes[globals.currentScene]->updateScene(deltaTime);
+
+	//Update input
+	Singleton<Input>::instance()->updateInput(renderer.window());
 
 	computeMatricesFromInputs(renderer.window(), deltaTime);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

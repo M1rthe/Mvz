@@ -12,10 +12,8 @@ void Scene::updateScene(float deltaTime) {
 	updateEntity(this, deltaTime);
 }
 
-
-void Scene::updateEntity(Entity* entity, float deltaTime)
-{
-	// call update() for this entity
+void Scene::updateEntity(Entity* entity, float deltaTime) {
+	
 	entity->update(deltaTime);
 
 	// update() all Children (recursively)
