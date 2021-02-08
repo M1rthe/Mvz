@@ -17,11 +17,14 @@ void SceneManager::run(Renderer renderer) {
 	//Update entities
 	scenes[globals.currentScene]->updateScene(deltaTime);
 
+	//Update Camera
+	scenes[globals.currentScene]->camera->updateViewMatrix(deltaTime, renderer.window());
+	//std::cout << "update view matrix of scene["<< globals.currentScene <<"]\n";
+	//computeMatricesFromInputs(renderer.window(), deltaTime);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	//Update input
 	Singleton<Input>::instance()->updateInput(renderer.window());
-
-	computeMatricesFromInputs(renderer.window(), deltaTime);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//Render entity sprites
 	renderer.renderScene(scenes[globals.currentScene]);

@@ -47,4 +47,6 @@ void computeMatricesFromInputs(GLFWwindow* window, float deltaTime) {
 		position + glm::vec3(0, 0, -1), /* and looks towards Z */
 		glm::vec3(0, 1, 0)  /* Head is up (set to 0,-1,0 to look upside-down) */
 	);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

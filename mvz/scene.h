@@ -13,7 +13,7 @@ public:
 	Scene();
 	~Scene();
 
-	//Camera* camera;
+	Camera* camera;
 
 	void updateScene(float deltaTime);
 
