@@ -60,8 +60,6 @@ int Renderer::init() {
 	//Create and compile our GLSL program from the shaders
 	programID = this->loadShaders("shaders/sprite.vert", "shaders/sprite.frag");
 
-	projectionMatrix = glm::ortho(0.0f, (float)window_width, (float)window_height, 0.0f, 0.1f, 100.0f);
-
 	// Use our shader
 	glUseProgram(programID);
 
@@ -139,6 +137,7 @@ void Renderer::renderScene(Scene * scene) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	this->viewMatrix = scene->camera->viewMatrix;
+	this->projectionMatrix = scene->camera->projectionMatrix;
 
 	renderEntity(glm::mat4(1.0f), scene);
 

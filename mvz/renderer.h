@@ -48,4 +48,4 @@ private:
 	glm::mat4 viewMatrix;
 };
 
-#endif /* RENDERER_H */
+#endif 

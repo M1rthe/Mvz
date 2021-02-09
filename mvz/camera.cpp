@@ -1,7 +1,7 @@
 #include <mvz/camera.h>
 
 Camera::Camera() {
-	position = Vector3(0, 0, 650); 
+	position = Vector3(0, 0, 650); //650 
 	rotation = Vector3(0, PI, 0);
 	
 	direction = glm::vec3(0, 0, -5);
@@ -12,7 +12,7 @@ Camera::Camera() {
 	offset = Vector3(1280 / 2, 720 / 2, 0);
 	position = Vector3(0, 0, 650) + offset;
 
-	viewMatrix = glm::ortho(0.0, 1280.0, 720.0, 0.0, 0.1, 1000.0);
+	projectionMatrix = glm::ortho(0.0, 1280.0, 720.0, 0.0, 0.1, 1000.0);
 	glDisable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 }
@@ -29,7 +29,7 @@ void Camera::updateViewMatrix(float deltaTime, GLFWwindow* window) {
 	up = glm::cross(right, direction);
 
 	viewMatrix = glm::lookAt(
-		glm::vec3(position.x-offset.x, position.y-offset.y, position.z-offset.z), //Position
+		glm::vec3(position.x - offset.x, position.y-offset.y, position.z-offset.z), //Position
 		glm::vec3(position.x - offset.x + direction.x, position.y - offset.y + direction.y, position.z - offset.z + direction.z), //Look towards Z
 		up //Head is up (set to 0,-1,0 to look upside-down) 
 	);
