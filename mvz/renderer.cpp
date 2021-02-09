@@ -4,7 +4,7 @@
 #include <vector>
 #include <fstream>
 
-#include <mvz/shittycamera.h>
+//#include <mvz/shittycamera.h>
 #include <mvz/renderer.h>
 
 Renderer::Renderer(unsigned int w, unsigned int h) {
@@ -85,21 +85,12 @@ float Renderer::updateDeltaTime() {
 	return deltaTime;
 }
 
-void Renderer::renderSprite(Sprite * sprite, float px, float py, float sx, float sy, float rot)
-{
-	glm::mat4 viewMatrix = getViewMatrix(); //Get from Camera (Camera position and direction)
-
-	//Build the Model matrix
-	glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(px, py, 0.0f));
-	glm::mat4 rotationMatrix    = glm::eulerAngleYXZ(0.0f, 0.0f, rot);
-	glm::mat4 scalingMatrix     = glm::scale(glm::mat4(1.0f), glm::vec3(sx, sy, 1.0f));
-
-	glm::mat4 modelMatrix = translationMatrix * rotationMatrix * scalingMatrix;
-
-	glm::mat4 MVP = projectionMatrix * viewMatrix * modelMatrix;
+void Renderer::renderSprite(glm::mat4 modelMatrix, Sprite * sprite) {
 
 	//Send our transformation to the currently bound shader,
 	//In the "MVP" uniform
+	glm::mat4 MVP = projectionMatrix * viewMatrix * modelMatrix;
+
 	GLuint matrixID = glGetUniformLocation(programID, "MVP");
 	glUniformMatrix4fv(matrixID, 1, GL_FALSE, &MVP[0][0]);
 
@@ -144,23 +135,39 @@ void Renderer::renderSprite(Sprite * sprite, float px, float py, float sx, float
 }
 
 void Renderer::renderScene(Scene * scene) {
-	renderEntity(scene);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	this->viewMatrix = scene->camera->viewMatrix;
+
+	renderEntity(glm::mat4(1.0f), scene);
+
+	glfwSwapBuffers(_window);
 }
 
-void Renderer::renderEntity(Entity * entity) {
+void Renderer::renderEntity(glm::mat4 modelMatrix, Entity * entity) {
+
+	//Build the Model matrix
+	glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(entity->position.x, entity->position.y, entity->position.z));
+	glm::mat4 rotationMatrix = glm::eulerAngleYXZ(entity->rotation.x, entity->rotation.y, entity->rotation.z);
+	glm::mat4 scalingMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(entity->scale.x, entity->scale.y, entity->scale.z));
+
+	glm::mat4 mm = translationMatrix * rotationMatrix * scalingMatrix;
+
+	modelMatrix *= mm;
 
 	//Check for Sprites to see if we need to render anything
 	Sprite* sprite = entity->sprite;
 	if (sprite != nullptr) {
 		//Render the Sprite. Just use the model matrix for the entity since this is a single sprite.
-		renderSprite(sprite, entity->position.x, entity->position.y, entity->scale.x, entity->scale.y, entity->rotation.z); 
+		renderSprite(modelMatrix, sprite); 
 	}
 
 	//Render all Children (recursively)
 	std::vector<Entity*> children = entity->children;
 	std::vector<Entity*>::iterator child;
 	for (child = children.begin(); child != children.end(); child++) {
-		this->renderEntity(*child);
+		this->renderEntity(modelMatrix, *child);
 	}
 }
 

@@ -14,10 +14,6 @@ MainScene::~MainScene() {
 
 void MainScene::update(float deltaTime) {
 
-	if (pencils->rotation.z > 6) { pencils->rotation.z = 0; }
-	
-	pencils->rotation.z += 1 * deltaTime;
-
 	if (input()->getKeyDown(Space)) {
 		globals.currentScene = "menu";
 	}

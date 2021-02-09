@@ -21,6 +21,8 @@ public:
 	Vector3 position;
 	Vector3 rotation;
 
+	glm::mat4 viewMatrix;
+
 	void updateViewMatrix(float deltaTime, GLFWwindow* window);
 
 private:
@@ -28,7 +30,6 @@ private:
 	glm::vec3 direction;
 	glm::vec3 up;
 	glm::vec3 right;
-	glm::mat4 viewMatrix;
 	Vector3 offset;
 };
 

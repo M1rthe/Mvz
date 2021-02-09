@@ -19,9 +19,9 @@ public:
 	Renderer(unsigned int w, unsigned int h);
 	virtual ~Renderer();
 
-	void renderSprite(Sprite * sprite, float px, float py, float sx, float sy, float rot);
+	void renderSprite(glm::mat4 modelMatrix, Sprite * sprite);
 	void renderScene(Scene * scene);
-	void renderEntity(Entity * entity);
+	void renderEntity(glm::mat4 modelMatrix, Entity * entity);
 	GLFWwindow* window() { return _window; };
 
 	unsigned int width() { return window_width; };
@@ -45,6 +45,7 @@ private:
 	GLuint programID;
 
 	glm::mat4 projectionMatrix;
+	glm::mat4 viewMatrix;
 };
 
 #endif /* RENDERER_H */

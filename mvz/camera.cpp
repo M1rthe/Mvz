@@ -1,7 +1,7 @@
 #include <mvz/camera.h>
 
 Camera::Camera() {
-	position = Vector3(0, 0, 650);
+	position = Vector3(0, 0, 650); 
 	rotation = Vector3(0, PI, 0);
 	
 	direction = glm::vec3(0, 0, -5);
@@ -26,7 +26,6 @@ void Camera::updateViewMatrix(float deltaTime, GLFWwindow* window) {
 	direction = glm::vec3(cos(rotation.x) * sin(rotation.y), sin(rotation.x), cos(rotation.x) * cos(rotation.y));
 	right = glm::vec3(sin(rotation.y - HALF_PI), 0, cos(rotation.y - HALF_PI));
 	right = glm::rotateZ(right, rotation.z*(float)RAD_TO_DEG);
-	//glm::rotate(viewMatrix, rotation.z * (float)RAD_TO_DEG, glm::vec3(position.x, position.y, position.z));
 	up = glm::cross(right, direction);
 
 	viewMatrix = glm::lookAt(
