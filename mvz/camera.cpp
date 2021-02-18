@@ -1,20 +1,18 @@
 #include <mvz/camera.h>
 
 Camera::Camera() {
-	position = Vector3(0, 0, 650); //650 
+
+	offset = Vector3(1280 / 2, 720 / 2, 0);
+	position = Vector3(0, 0, 650) + offset;
 	rotation = Vector3(0, PI, 0);
 	
 	direction = glm::vec3(0, 0, -5);
 	up = glm::vec3(0, 1, 0);
 	right = glm::vec3(1, 0, 0);
 
-	//Orthogonal
-	offset = Vector3(1280 / 2, 720 / 2, 0);
-	position = Vector3(0, 0, 650) + offset;
-
 	projectionMatrix = glm::ortho(0.0, 1280.0, 720.0, 0.0, 0.1, 1000.0);
-	glDisable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
+	//glDisable(GL_DEPTH_TEST);
+	//glDepthFunc(GL_LESS);
 }
 
 Camera::~Camera() {

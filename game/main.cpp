@@ -1,7 +1,7 @@
-// Include GLEW
+//Include GLEW
 #include <GL/glew.h>
 
-// Include GLFW
+//Include GLFW
 #include <GLFW/glfw3.h>
 
 #include <mvz/renderer.h>
@@ -19,9 +19,11 @@ int main(void)
 	Renderer renderer(1280, 720);
 
 	std::map<std::string, Scene*> scenes = {
-		{"game", new MainScene()},
-		{"menu", new MenuScene()}
+		{"game", new MainScene()}/*,
+		{"menu", new MenuScene()}*/
 	};
+
+	scenes.insert(std::pair<std::string, Scene*>("menu", new MenuScene));
 
 	SceneManager* sceneManager = new SceneManager(scenes);
 

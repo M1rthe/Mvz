@@ -2,6 +2,7 @@
 
 MenuScene::MenuScene() : Scene() {
 
+	std::cout << "\n\n";
 	startButton = new Button(Vector2(0, 0), "Start", "assets/kingkong.tga", std::bind(&MenuScene::start, this));
 	addChild(startButton);
 }

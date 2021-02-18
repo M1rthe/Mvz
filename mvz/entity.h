@@ -24,7 +24,7 @@ public:
 
 	void addChild(Entity* child);
 	void removeChild(Entity* child);
-	void addSprite(const std::string& filename);
+	void addSprite(const std::string& filename, int u, int v);
 
 	Input* input() { return _input; };
 

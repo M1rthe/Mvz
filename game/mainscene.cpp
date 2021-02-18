@@ -2,10 +2,14 @@
 
 MainScene::MainScene() : Scene() {
 
+	std::cout << "\n\n";
+
 	pencils = new EntityEmpty();
-	pencils->addSprite("assets/pencils.tga");
+	pencils->addSprite("assets/frameTest.tga", 1, 1); //pencils.tga
 	pencils->position = Vector2(200, 200);
 	addChild(pencils);
+
+	pencils->sprite->frame(0);
 }
 
 MainScene::~MainScene() {

@@ -46,7 +46,9 @@ void Entity::removeChild(Entity* child) {
 	}
 }
 
-void Entity::addSprite(const std::string& filename) {
+void Entity::addSprite(const std::string& filename, int u, int v) {
 	deleteSprite();
-	sprite = new Sprite(filename);
+	std::cout << "new Sprite("<<u<<", "<<v<<")\n";
+	sprite = new Sprite(filename, 1.0f/u, 1.0f/v);
 }
+

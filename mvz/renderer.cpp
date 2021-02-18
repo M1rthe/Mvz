@@ -55,7 +55,7 @@ int Renderer::init() {
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 
 	//Cull triangles which normal is not towards the camera
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 
 	//Create and compile our GLSL program from the shaders
 	programID = this->loadShaders("shaders/sprite.vert", "shaders/sprite.frag");
@@ -115,6 +115,7 @@ void Renderer::renderSprite(glm::mat4 modelMatrix, Sprite * sprite) {
 	//2nd attribute buffer: UVs
 	GLuint vertexUVID = glGetAttribLocation(programID, "vertexUV");
 	glEnableVertexAttribArray(vertexUVID);
+
 	glBindBuffer(GL_ARRAY_BUFFER, sprite->uvbuffer());
 	glVertexAttribPointer(
 		vertexUVID, // The attribute we want to configure

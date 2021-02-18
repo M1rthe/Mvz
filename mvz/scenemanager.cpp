@@ -14,8 +14,6 @@ void SceneManager::run(Renderer renderer) {
 	//Deltatime
 	float deltaTime = renderer.updateDeltaTime();
 
-	//scenes[globals.currentScene]->camera->rotation.y += 0.2 * deltaTime;
-
 	//Update input
 	Singleton<Input>::instance()->updateInput(renderer.window());
 

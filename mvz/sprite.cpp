@@ -8,18 +8,23 @@
 
 #include <mvz/sprite.h>
 
-Sprite::Sprite(const std::string& imagepath)
-{
-	//These will be set correctly in loadTGA()
+Sprite::Sprite(const std::string& imagepath, float u, float v) {
+
 	_width = 0;
 	_height = 0;
 
-	//Load image as texture
+	uvdim = Vector2(u, v);
+	uvoffset = Vector2(0.0f, 0.0f);
+
+	std::cout << "add sprite(" << imagepath << ", " << uvdim << ")";
+
 	_texture = loadTGA(imagepath);
+
+	generateBuffers();
 
 	//Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
 	//A sprite has 1 face (quad) with 2 triangles each, so this makes 1*2=2 triangles, and 2*3 vertices
-	GLfloat g_vertex_buffer_data[18] = {
+	/*GLfloat g_vertex_buffer_data[18] = {
 		 0.5f * _width, -0.5f * _height, 0.0f,
 		-0.5f * _width, -0.5f * _height, 0.0f,
 		-0.5f * _width,  0.5f * _height, 0.0f,
@@ -38,15 +43,7 @@ Sprite::Sprite(const std::string& imagepath)
 		0.0f, 0.0f,
 		1.0f, 0.0f,
 		1.0f, 1.0f
-	};
-
-	glGenBuffers(1, &_vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, _vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-
-	glGenBuffers(1, &_uvbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, _uvbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_uv_buffer_data), g_uv_buffer_data, GL_STATIC_DRAW);
+	};*/
 }
 
 Sprite::~Sprite() {
@@ -108,7 +105,7 @@ GLuint Sprite::loadTGA(const std::string& imagepath) {
 
 	unsigned int imagesize = _width * _height * bitdepth;
 
-	// Create a buffer
+	//Create a buffer
 	data = new unsigned char [imagesize];
 
 	//Read the actual data from the file into the buffer
@@ -185,4 +182,74 @@ GLuint Sprite::loadTGA(const std::string& imagepath) {
 
 	//Return the ID of the texture we just created
 	return textureID;
+}
+
+void Sprite::generateBuffers() {
+	std::vector<glm::vec3> vertices;
+	std::vector<glm::vec2> uvs;
+
+	float uvwidth = uvdim.x;
+	float uvheight = uvdim.y;
+	float pivotx = 0.5f;
+	float pivoty = 0.5f;
+	std::cout << "size: " << _width << ", " << _height << "\n";
+	std::cout << "uvsize: " << uvwidth << ", " << uvheight << "\n";
+
+	// first triangle
+	vertices.push_back(glm::vec3(-_width * pivotx, -_height * pivoty, 0.0f));
+	vertices.push_back(glm::vec3(-_width * pivotx, _height - (_height * pivoty), 0.0f));
+	vertices.push_back(glm::vec3(_width - (_width * pivotx), _height - (_height * pivoty), 0.0f));
+	// second triangle
+	vertices.push_back(glm::vec3(_width - (_width * pivotx), _height - (_height * pivoty), 0.0f));
+	vertices.push_back(glm::vec3(_width - (_width * pivotx), -_height * pivoty, 0.0f));
+	vertices.push_back(glm::vec3(-_width * pivotx, -_height * pivoty, 0.0f));
+
+	// UV coordinates for each vertex.
+	// uvs for first triangle
+	uvs.push_back(glm::vec2(0.0f, uvheight));
+	uvs.push_back(glm::vec2(0.0f, 0.0f));
+	uvs.push_back(glm::vec2(uvwidth, 0.0f));
+	// uvs for second triangle
+	uvs.push_back(glm::vec2(uvwidth, 0.0f));
+	uvs.push_back(glm::vec2(uvwidth, uvheight));
+	uvs.push_back(glm::vec2(0.0f, uvheight));
+	//////////////////////////////////////////////////////
+
+	glGenBuffers(1, &_vertexbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, _vertexbuffer);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec2), &vertices[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &_uvbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, _uvbuffer);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(g_uv_buffer_data), g_uv_buffer_data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
+}
+
+int Sprite::frame(int f) {
+
+	std::cout << "before set frame, uvoffset: "<<uvoffset<<"\n";
+
+	int w = 1.0f / uvdim.x;
+	int h = 1.0f / uvdim.y;
+
+	if (f >= w * h) {
+		_frame = 0;
+		uvoffset.x = 0;
+		uvoffset.y = 0;
+		return _frame;
+	}
+
+	int ypos = f / w;
+	int xpos = f % w;
+
+	uvoffset.x = xpos * uvdim.x;
+	uvoffset.y = ypos * uvdim.y;
+
+	_frame = f;
+	std::cout << "after set frame, uvoffset: " << uvoffset << "\n";
+
+	//generateBuffers();
+
+	return _frame;
 }

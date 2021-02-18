@@ -2,7 +2,7 @@
 
 Button::Button(Vector2 pos, std::string txt, std::string spriteName, std::function<void()> cbf) : Entity() {
 	
-	addSprite(spriteName);
+	addSprite(spriteName, 1, 1);
 
 	rect = Rectangle(pos.x, pos.y, sprite->width(), sprite->height());
 	text = txt;
