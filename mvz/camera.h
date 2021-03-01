@@ -24,7 +24,7 @@ public:
 	glm::mat4 viewMatrix;
 	glm::mat4 projectionMatrix;
 
-	void updateViewMatrix(float deltaTime, GLFWwindow* window);
+	void updateViewMatrix(GLFWwindow* window);
 
 private:
 

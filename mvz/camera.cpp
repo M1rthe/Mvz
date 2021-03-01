@@ -19,7 +19,7 @@ Camera::~Camera() {
 
 }
 
-void Camera::updateViewMatrix(float deltaTime, GLFWwindow* window) {
+void Camera::updateViewMatrix(GLFWwindow* window) {
 
 	direction = glm::vec3(cos(rotation.x) * sin(rotation.y), sin(rotation.x), cos(rotation.x) * cos(rotation.y));
 	right = glm::vec3(sin(rotation.y - HALF_PI), 0, cos(rotation.y - HALF_PI));

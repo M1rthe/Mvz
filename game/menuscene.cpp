@@ -14,13 +14,11 @@ MenuScene::~MenuScene() {
 	delete startButton;
 }
 
-void MenuScene::update(float deltaTime) {
+void MenuScene::update() {
 
 	if (input()->getKeyDown(Space)) {
 		globals.currentScene = "game";
 	}
-
-	std::cout << "Time: "<<time<<"\n";
 }
 
 void MenuScene::start() {

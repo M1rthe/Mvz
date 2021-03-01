@@ -27,7 +27,7 @@ public:
 	unsigned int width() { return window_width; };
 	unsigned int height() { return window_height; };
 
-	float updateDeltaTime();
+	double updateDeltaTime();
 
 private:
 

@@ -11,7 +11,7 @@ class MainScene : public Scene {
 public:
 	MainScene();
 	~MainScene();
-	virtual void update(float deltaTime);
+	virtual void update();
 
 private:
 	EntityEmpty* pencils;

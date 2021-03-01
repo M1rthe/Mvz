@@ -7,6 +7,9 @@ Entity::Entity() {
 	guid = nextGuid;
 	nextGuid++;
 
+	time = globals.time;
+	deltaTime = globals.deltaTime;
+
 	position = Vector3(0.0f, 0.0f, 0.0f);
 	rotation = Vector3(0.0f, 0.0f, 0.0f);
 	scale = Vector3(1.0f, 1.0f, 1.0f);
@@ -21,8 +24,8 @@ Entity::~Entity() {
 	deleteSprite();
 }
 
-void Entity::update(float deltaTime) {
-
+void Entity::update() {
+	
 }
 
 void Entity::addChild(Entity* child) {

@@ -66,7 +66,7 @@ int Renderer::init() {
 	return 0;
 }
 
-float Renderer::updateDeltaTime() {
+double Renderer::updateDeltaTime() {
 
 	// lastTime is initialised only the first time this function is called
 	static double lastTime = glfwGetTime();
@@ -75,7 +75,7 @@ float Renderer::updateDeltaTime() {
 	double currentTime = glfwGetTime();
 
 	// Compute time difference between current and last time
-	float deltaTime = float(currentTime - lastTime);
+	double deltaTime = currentTime - lastTime;
 
 	// For the next frame, the "last time" will be "now"
 	lastTime = currentTime;

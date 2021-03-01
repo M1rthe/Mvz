@@ -14,12 +14,11 @@ public:
 	~Scene();
 
 	Camera* camera;
-	double time;
 
-	void updateScene(float deltaTime);
+	void updateScene();
 
 private:
-	void updateEntity(Entity* entity, float deltaTime);
+	void updateEntity(Entity* entity);
 };
 
 #endif

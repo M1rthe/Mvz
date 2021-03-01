@@ -12,17 +12,17 @@ SceneManager::~SceneManager() {
 void SceneManager::run(Renderer renderer) {
 
 	//Deltatime
-	float deltaTime = renderer.updateDeltaTime();
+	globals.deltaTime = renderer.updateDeltaTime();
 	globals.time = glfwGetTime();
 
 	//Update input
 	Singleton<Input>::instance()->updateInput(renderer.window());
 
 	//Update Camera
-	scenes[globals.currentScene]->camera->updateViewMatrix(deltaTime, renderer.window());
+	scenes[globals.currentScene]->camera->updateViewMatrix(renderer.window());
 
 	//Update entities
-	scenes[globals.currentScene]->updateScene(deltaTime);
+	scenes[globals.currentScene]->updateScene();
 
 	//Render entity sprites
 	renderer.renderScene(scenes[globals.currentScene]);

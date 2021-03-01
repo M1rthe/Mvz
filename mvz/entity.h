@@ -6,13 +6,17 @@
 #include <mvz/input.h>
 #include <vector>
 #include <mvz/singleton.h>
+#include <mvz/globals.h>
 
 class Entity {
 
 public:
 	Entity();
 	~Entity();
-	virtual void update(float deltaTime) = 0;
+	virtual void update();
+
+	double time;
+	double deltaTime;
 
 	Vector3 position; 
 	Vector3 rotation;

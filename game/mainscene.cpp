@@ -12,7 +12,7 @@ MainScene::~MainScene() {
 	delete pencils;
 }
 
-void MainScene::update(float deltaTime) {
+void MainScene::update() {
 
 	if (input()->getKeyDown(Space)) {
 		globals.currentScene = "menu";

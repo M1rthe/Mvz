@@ -11,7 +11,7 @@ class MenuScene : public Scene {
 public:
 	MenuScene();
 	~MenuScene();
-	virtual void update(float deltaTime);
+	virtual void update();
 
 private:
 	Button* startButton;
