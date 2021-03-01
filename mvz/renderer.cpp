@@ -85,6 +85,8 @@ double Renderer::updateDeltaTime() {
 
 void Renderer::renderSprite(glm::mat4 modelMatrix, Sprite * sprite) {
 
+	glUniform2f(glGetUniformLocation(programID, "UVoffset"), sprite->uvoffset.x, sprite->uvoffset.y);
+
 	sprite->generateBuffers();
 
 	//Send our transformation to the currently bound shader,

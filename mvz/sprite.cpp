@@ -226,7 +226,7 @@ void Sprite::generateBuffers() {
 
 int Sprite::frame(int f) {
 
-	std::cout << "frame("<<f<<")\n";
+	std::cout << "\nf("<<f<<")\n";
 
 	int w = 1.0f / uvdim.x;
 	int h = 1.0f / uvdim.y;
@@ -235,6 +235,7 @@ int Sprite::frame(int f) {
 		_frame = 0;
 		uvoffset.x = 0;
 		uvoffset.y = 0;
+		std::cout << "_frame(" << _frame << "), offset(" << uvoffset << ")\n";
 		return _frame;
 	}
 
@@ -245,6 +246,8 @@ int Sprite::frame(int f) {
 	uvoffset.y = ypos * uvdim.y;
 
 	_frame = f;
+
+	std::cout << "_frame(" << _frame << "), offset("<< uvoffset<<")\n";
 
 	return _frame;
 }

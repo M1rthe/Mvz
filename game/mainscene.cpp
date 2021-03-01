@@ -6,6 +6,8 @@ MainScene::MainScene() : Scene() {
 	pencils->addSprite("assets/frameTest.tga", 2, 1); //pencils.tga
 	pencils->position = Vector2(200, 200);
 	addChild(pencils);
+
+	std::cout << "pencils->sprite->frame() = "<< pencils->sprite->frame()<<"\n";
 }
 
 MainScene::~MainScene() {

@@ -39,7 +39,7 @@ private:
 	int _width;
 	int _height;
 
-	int _frame;
+	int _frame = 0;
 };
 
 #endif /* SPRITE_H */

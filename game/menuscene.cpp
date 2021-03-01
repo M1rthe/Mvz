@@ -22,6 +22,6 @@ void MenuScene::update() {
 }
 
 void MenuScene::start() {
-	std::cout << "start\n";
+	std::cout << "start game (button)\n";
 }
 
