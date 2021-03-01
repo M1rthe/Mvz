@@ -2,14 +2,10 @@
 
 MainScene::MainScene() : Scene() {
 
-	std::cout << "\n\n";
-
 	pencils = new EntityEmpty();
-	pencils->addSprite("assets/frameTest.tga", 1, 1); //pencils.tga
+	pencils->addSprite("assets/frameTest.tga", 2, 1); //pencils.tga
 	pencils->position = Vector2(200, 200);
 	addChild(pencils);
-
-	pencils->sprite->frame(0);
 }
 
 MainScene::~MainScene() {
@@ -20,5 +16,8 @@ void MainScene::update(float deltaTime) {
 
 	if (input()->getKeyDown(Space)) {
 		globals.currentScene = "menu";
+	}
+	if (input()->getKeyDown(F)) {
+		pencils->sprite->frame(pencils->sprite->frame() + 1);
 	}
 }

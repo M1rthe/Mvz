@@ -15,8 +15,7 @@ Sprite::Sprite(const std::string& imagepath, float u, float v) {
 
 	uvdim = Vector2(u, v);
 	uvoffset = Vector2(0.0f, 0.0f);
-
-	std::cout << "add sprite(" << imagepath << ", " << uvdim << ")";
+	size = Vector2(0.0f, 0.0f);
 
 	_texture = loadTGA(imagepath);
 
@@ -53,8 +52,6 @@ Sprite::~Sprite() {
 }
 
 GLuint Sprite::loadTGA(const std::string& imagepath) {
-
-	std::cout << "Loading TGA: " << imagepath << std::endl;
 
 	FILE *file;
 	unsigned char type[4];
@@ -185,6 +182,7 @@ GLuint Sprite::loadTGA(const std::string& imagepath) {
 }
 
 void Sprite::generateBuffers() {
+
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> uvs;
 
@@ -192,17 +190,18 @@ void Sprite::generateBuffers() {
 	float uvheight = uvdim.y;
 	float pivotx = 0.5f;
 	float pivoty = 0.5f;
-	std::cout << "size: " << _width << ", " << _height << "\n";
-	std::cout << "uvsize: " << uvwidth << ", " << uvheight << "\n";
+
+	if (size.x == 0) { size.x = _width * uvdim.x; }
+	if (size.y == 0) { size.y = _height * uvdim.y; }
 
 	// first triangle
-	vertices.push_back(glm::vec3(-_width * pivotx, -_height * pivoty, 0.0f));
-	vertices.push_back(glm::vec3(-_width * pivotx, _height - (_height * pivoty), 0.0f));
-	vertices.push_back(glm::vec3(_width - (_width * pivotx), _height - (_height * pivoty), 0.0f));
+	vertices.push_back(glm::vec3(-size.x * pivotx, -size.y * pivoty, 0.0f));
+	vertices.push_back(glm::vec3(-size.x * pivotx, size.y - (size.y * pivoty), 0.0f));
+	vertices.push_back(glm::vec3(size.x - (size.x * pivotx), size.y - (size.y * pivoty), 0.0f));
 	// second triangle
-	vertices.push_back(glm::vec3(_width - (_width * pivotx), _height - (_height * pivoty), 0.0f));
-	vertices.push_back(glm::vec3(_width - (_width * pivotx), -_height * pivoty, 0.0f));
-	vertices.push_back(glm::vec3(-_width * pivotx, -_height * pivoty, 0.0f));
+	vertices.push_back(glm::vec3(size.x - (size.x * pivotx), size.y - (size.y * pivoty), 0.0f));
+	vertices.push_back(glm::vec3(size.x - (size.x * pivotx), -size.y * pivoty, 0.0f));
+	vertices.push_back(glm::vec3(-size.x * pivotx, -size.y * pivoty, 0.0f));
 
 	// UV coordinates for each vertex.
 	// uvs for first triangle
@@ -213,12 +212,11 @@ void Sprite::generateBuffers() {
 	uvs.push_back(glm::vec2(uvwidth, 0.0f));
 	uvs.push_back(glm::vec2(uvwidth, uvheight));
 	uvs.push_back(glm::vec2(0.0f, uvheight));
-	//////////////////////////////////////////////////////
 
 	glGenBuffers(1, &_vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexbuffer);
 	//glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec2), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 
 	glGenBuffers(1, &_uvbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, _uvbuffer);
@@ -228,7 +226,7 @@ void Sprite::generateBuffers() {
 
 int Sprite::frame(int f) {
 
-	std::cout << "before set frame, uvoffset: "<<uvoffset<<"\n";
+	std::cout << "frame("<<f<<")\n";
 
 	int w = 1.0f / uvdim.x;
 	int h = 1.0f / uvdim.y;
@@ -247,9 +245,6 @@ int Sprite::frame(int f) {
 	uvoffset.y = ypos * uvdim.y;
 
 	_frame = f;
-	std::cout << "after set frame, uvoffset: " << uvoffset << "\n";
-
-	//generateBuffers();
 
 	return _frame;
 }

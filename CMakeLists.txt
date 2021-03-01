@@ -87,6 +87,7 @@ add_library(mvz # ar rcs libmvz.a
 	mvz/input.cpp
 	mvz/singleton.h
 	mvz/shapes.h
+	mvz/color.h
 )
 
 # game

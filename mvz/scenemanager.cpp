@@ -13,6 +13,7 @@ void SceneManager::run(Renderer renderer) {
 
 	//Deltatime
 	float deltaTime = renderer.updateDeltaTime();
+	globals.time = glfwGetTime();
 
 	//Update input
 	Singleton<Input>::instance()->updateInput(renderer.window());

@@ -2,6 +2,7 @@
 
 Scene::Scene() : Entity() {
 	camera = new Camera();
+	time = globals.time;
 }
 
 Scene::~Scene() {
@@ -14,6 +15,8 @@ void Scene::updateScene(float deltaTime) {
 
 void Scene::updateEntity(Entity* entity, float deltaTime) {
 	
+	time = globals.time;
+
 	entity->update(deltaTime);
 
 	// update() all Children (recursively)

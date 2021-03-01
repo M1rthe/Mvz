@@ -14,6 +14,7 @@ public:
 	~Scene();
 
 	Camera* camera;
+	double time;
 
 	void updateScene(float deltaTime);
 

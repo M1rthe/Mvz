@@ -6,6 +6,7 @@ class Globals {
 
 public:
     std::string currentScene;
+    double time = 0.0;
 
 public:
     Globals() = default;

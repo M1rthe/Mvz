@@ -20,18 +20,21 @@ public:
 	int height() { return _height; };
 
 	int frame(int f);
+	int frame() { return _frame; };
+
+	void generateBuffers();
+
+	Vector2 uvoffset;
+	Vector2 size;
 
 private:
 	GLuint loadTGA(const std::string& imagepath);
-
-	void generateBuffers();
 
 	GLuint _texture;
 	GLuint _vertexbuffer;
 	GLuint _uvbuffer;
 
 	Vector2 uvdim;
-	Vector2 uvoffset;
 
 	int _width;
 	int _height;

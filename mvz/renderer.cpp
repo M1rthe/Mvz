@@ -85,6 +85,8 @@ float Renderer::updateDeltaTime() {
 
 void Renderer::renderSprite(glm::mat4 modelMatrix, Sprite * sprite) {
 
+	sprite->generateBuffers();
+
 	//Send our transformation to the currently bound shader,
 	//In the "MVP" uniform
 	glm::mat4 MVP = projectionMatrix * viewMatrix * modelMatrix;
@@ -123,7 +125,7 @@ void Renderer::renderSprite(glm::mat4 modelMatrix, Sprite * sprite) {
 		GL_FLOAT,   // type
 		GL_FALSE,   // normalized?
 		0,          // stride
-		(void*)0    // array buffer offset
+		(void*)0    // array buffer offset (void*)0
 	);
 
 	// Draw the triangles
