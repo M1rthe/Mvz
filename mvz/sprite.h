@@ -24,6 +24,8 @@ public:
 
 	void generateBuffers();
 
+	Vector2 spritePosition; //For spritebatch
+
 	Vector2 uvoffset;
 	Vector2 size;
 

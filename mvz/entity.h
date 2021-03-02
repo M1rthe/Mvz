@@ -8,6 +8,10 @@
 #include <mvz/singleton.h>
 #include <mvz/globals.h>
 
+#include <iostream>
+#include <cstdlib> 
+#include <ctime> 
+
 class Entity {
 
 public:
@@ -23,12 +27,15 @@ public:
 	Vector3 scale;
 
 	Sprite* sprite;
+	std::vector<Sprite*> spritebatch;
 
 	std::vector<Entity*> children;
 
 	void addChild(Entity* child);
 	void removeChild(Entity* child);
-	void addSprite(const std::string& filename, int u, int v);
+	void addSprite(const std::string& filename);
+	void addSpriteSheet(const std::string& filename, int u, int v);
+	void addSpriteGrid(const std::string& filename, int u, int v, int cols, int rows);
 
 	Input* input() { return _input; };
 
@@ -39,6 +46,14 @@ private:
 			delete sprite;
 			sprite = nullptr;
 		}
+	};
+
+	void deleteSpriteBatch() {
+		int s = spritebatch.size();
+		for (int i = 0; i < s; i++) {
+			delete spritebatch[i];
+		}
+		spritebatch.clear();
 	};
 
 	int guid; 

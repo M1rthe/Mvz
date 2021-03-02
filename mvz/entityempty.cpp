@@ -8,6 +8,6 @@ EntityEmpty::~EntityEmpty() {
 
 }
 
-void EntityEmpty::update(float deltaTime) {
+void EntityEmpty::update() {
 
 }

@@ -13,36 +13,15 @@ Sprite::Sprite(const std::string& imagepath, float u, float v) {
 	_width = 0;
 	_height = 0;
 
+	spritePosition = Vector2(0.0, 0.0);
+
 	uvdim = Vector2(u, v);
-	uvoffset = Vector2(0.0f, 0.0f);
-	size = Vector2(0.0f, 0.0f);
+	uvoffset = Vector2(0.0, 0.0);
+	size = Vector2(0.0, 0.0);
 
 	_texture = loadTGA(imagepath);
 
 	generateBuffers();
-
-	//Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
-	//A sprite has 1 face (quad) with 2 triangles each, so this makes 1*2=2 triangles, and 2*3 vertices
-	/*GLfloat g_vertex_buffer_data[18] = {
-		 0.5f * _width, -0.5f * _height, 0.0f,
-		-0.5f * _width, -0.5f * _height, 0.0f,
-		-0.5f * _width,  0.5f * _height, 0.0f,
-
-		-0.5f * _width,  0.5f * _height, 0.0f,
-		 0.5f * _width,  0.5f * _height, 0.0f,
-		 0.5f * _width, -0.5f * _height, 0.0f
-	};
-
-	//Two UV coordinates for each vertex.
-	GLfloat g_uv_buffer_data[12] = {
-		1.0f, 1.0f,
-		0.0f, 1.0f,
-		0.0f, 0.0f,
-
-		0.0f, 0.0f,
-		1.0f, 0.0f,
-		1.0f, 1.0f
-	};*/
 }
 
 Sprite::~Sprite() {
@@ -226,8 +205,6 @@ void Sprite::generateBuffers() {
 
 int Sprite::frame(int f) {
 
-	std::cout << "\nf("<<f<<")\n";
-
 	int w = 1.0f / uvdim.x;
 	int h = 1.0f / uvdim.y;
 
@@ -235,7 +212,6 @@ int Sprite::frame(int f) {
 		_frame = 0;
 		uvoffset.x = 0;
 		uvoffset.y = 0;
-		std::cout << "_frame(" << _frame << "), offset(" << uvoffset << ")\n";
 		return _frame;
 	}
 
@@ -246,8 +222,6 @@ int Sprite::frame(int f) {
 	uvoffset.y = ypos * uvdim.y;
 
 	_frame = f;
-
-	std::cout << "_frame(" << _frame << "), offset("<< uvoffset<<")\n";
 
 	return _frame;
 }

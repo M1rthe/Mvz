@@ -86,6 +86,7 @@ double Renderer::updateDeltaTime() {
 void Renderer::renderSprite(glm::mat4 modelMatrix, Sprite * sprite) {
 
 	glUniform2f(glGetUniformLocation(programID, "UVoffset"), sprite->uvoffset.x, sprite->uvoffset.y);
+	glVertexAttrib3f(glGetAttribLocation(programID, "spritePosition"), sprite->spritePosition.x, sprite->spritePosition.y, 0);
 
 	sprite->generateBuffers();
 
@@ -165,6 +166,12 @@ void Renderer::renderEntity(glm::mat4 modelMatrix, Entity * entity) {
 	if (sprite != nullptr) {
 		//Render the Sprite. Just use the model matrix for the entity since this is a single sprite.
 		renderSprite(modelMatrix, sprite); 
+	}
+	
+	//RenderSpriteBatch
+	for (size_t i = 0; i < entity->spritebatch.size(); i++)
+	{
+		renderSprite(modelMatrix, entity->spritebatch[i]);
 	}
 
 	//Render all Children (recursively)

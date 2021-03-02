@@ -15,6 +15,7 @@ public:
 
 private:
 	EntityEmpty* pencils;
+	EntityEmpty* tileset;
 };
 
 #endif 

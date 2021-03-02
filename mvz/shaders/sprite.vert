@@ -1,20 +1,16 @@
 #version 120
 
-// Input vertex data, different for all executions of this shader.
 attribute vec3 vertexPosition;
 attribute vec2 vertexUV;
+attribute vec3 spritePosition; //test
 
-// Output data ; will be interpolated for each fragment.
 varying vec2 UV;
 
-// Values that stay constant for the whole mesh.
 uniform mat4 MVP;
+uniform vec2 UVoffset;
 
 void main()
 {
-	// Output position of the vertex, in clip space : MVP * position
-	gl_Position =  MVP * vec4(vertexPosition,1);
-
-	// UV of the vertex. No special space for this one.
-	UV = vertexUV;
+	gl_Position = MVP * vec4(vertexPosition + spritePosition, 1);
+	UV = vertexUV + UVoffset;
 }

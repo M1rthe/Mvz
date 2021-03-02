@@ -2,7 +2,7 @@
 
 Button::Button(Vector2 pos, std::string txt, std::string spriteName, std::function<void()> cbf) : Entity() {
 	
-	addSprite(spriteName, 1, 1);
+	addSprite(spriteName);
 
 	rect = Rectangle(pos.x, pos.y, sprite->width(), sprite->height());
 	text = txt;
@@ -15,7 +15,7 @@ Button::~Button() {
 
 }
 
-void Button::update(float deltaTime) {
+void Button::update() {
 
 	if (input()->getMouseDown(0)) {
 		if ((float)input()->getMouseX() > rect.x &&

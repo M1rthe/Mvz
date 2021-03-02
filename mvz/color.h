@@ -81,7 +81,7 @@ struct Color {
 		hex += values[(int)std::floor(rgba.b / 16)];
 		hex += values[rgba.b % 16];
 
-		std::cout << "from rgb("<< unsigned(rgba.r)<<", "<< unsigned(rgba.g)<<", "<< unsigned(rgba.b)<<") to #"<<hex<<"\n";
+		//std::cout << "from rgb("<< unsigned(rgba.r)<<", "<< unsigned(rgba.g)<<", "<< unsigned(rgba.b)<<") to #"<<hex<<"\n";
 
 		return HEXColor(hex);
 	}
@@ -94,7 +94,7 @@ struct Color {
 		uint8_t g = (values.find(hex.at(2))->second * 16) + values.find(hex.at(3))->second;
 		uint8_t b = (values.find(hex.at(4))->second * 16) + values.find(hex.at(5))->second;
 
-		std::cout << "from hex #"<<hex<<" to rgb("<< unsigned(r) <<", "<<unsigned(g)<<", "<<unsigned(b)<<")\n";
+		//std::cout << "from hex #"<<hex<<" to rgb("<< unsigned(r) <<", "<<unsigned(g)<<", "<<unsigned(b)<<")\n";
 
 		return RGBAColor(r, g, b, 255);
 	}

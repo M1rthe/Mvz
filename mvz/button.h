@@ -10,7 +10,7 @@ class Button : public Entity {
 public:
 	Button(Vector2 rect, std::string txt, std::string spriteName, std::function<void()> cbf);
 	~Button();
-	virtual void update(float deltaTime);
+	virtual void update();
 
 private:
 	Rectangle rect;

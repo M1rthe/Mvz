@@ -8,7 +8,7 @@ class EntityEmpty : public Entity {
 public:
 	EntityEmpty();
 	~EntityEmpty();
-	virtual void update(float deltaTime);
+	virtual void update();
 };
 
 #endif

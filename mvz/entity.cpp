@@ -22,6 +22,7 @@ Entity::Entity() {
 
 Entity::~Entity() {
 	deleteSprite();
+	deleteSpriteBatch();
 }
 
 void Entity::update() {
@@ -49,8 +50,29 @@ void Entity::removeChild(Entity* child) {
 	}
 }
 
-void Entity::addSprite(const std::string& filename, int u, int v) {
-	deleteSprite();
-	sprite = new Sprite(filename, 1.0f/u, 1.0f/v);
+void Entity::addSprite(const std::string& filename) {
+	addSpriteSheet(filename, 1, 1);
 }
+
+void Entity::addSpriteSheet(const std::string& filename, int u, int v) {
+	deleteSprite();
+	sprite = new Sprite(filename, 1.0f / u, 1.0f / v);
+}
+
+void Entity::addSpriteGrid(const std::string& filename, int u, int v, int cols, int rows) {
+	
+	deleteSpriteBatch();
+	//std::srand(std::time(0));
+	for (int x = 0; x < rows; x++) {
+		for (int y = 0; y < cols; y++) {
+			Sprite* s = new Sprite(filename, 1.0f / u, 1.0f / v);
+			s->spritePosition.x = x * (s->size.x);
+			s->spritePosition.y = y * (s->size.y);
+			//s->frame(std::rand() % (cols*rows));
+			spritebatch.push_back(s);
+		}
+	}
+}
+
+
 
