@@ -74,10 +74,10 @@ GLuint Sprite::loadTGA(const std::string& imagepath) {
 
 	// Check if the image's width and height is a power of 2. No biggie, we can handle it.
 	if ((_width & (_width - 1)) != 0) {
-		std::cout << "warning: " << imagepath << "’s width is not a power of 2" << std::endl;
+		std::cout << "warning: " << imagepath << " width is not a power of 2" << std::endl;
 	}
 	if ((_height & (_height - 1)) != 0) {
-		std::cout << "warning: " << imagepath << "’s height is not a power of 2" << std::endl;
+		std::cout << "warning: " << imagepath << " height is not a power of 2" << std::endl;
 	}
 	if (_width != _height) {
 		std::cout << "warning: " << imagepath << " is not square" << std::endl;
