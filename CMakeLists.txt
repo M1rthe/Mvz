@@ -88,6 +88,8 @@ add_library(mvz # ar rcs libmvz.a
 	mvz/singleton.h
 	mvz/shapes.h
 	mvz/color.h
+	mvz/text.h
+	mvz/text.cpp
 )
 
 # game
@@ -110,5 +112,9 @@ file(
 )
 file(
 	COPY mvz/shaders
+	DESTINATION ${CMAKE_BINARY_DIR}
+)
+file(
+	COPY mvz/fonts
 	DESTINATION ${CMAKE_BINARY_DIR}
 )

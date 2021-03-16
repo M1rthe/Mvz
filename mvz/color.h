@@ -46,6 +46,10 @@ struct RGBAColor
 		return color;
 	}
 
+	std::string toString() {
+		return (std::to_string(this->r)+", "+ std::to_string(this->g)+", "+ std::to_string(this->b)+", "+ std::to_string(this->a));
+	}
+
 	inline bool operator==(const RGBAColor& rhs) {
 		return (r == rhs.r && g == rhs.g && b == rhs.b && a == rhs.a);
 	}

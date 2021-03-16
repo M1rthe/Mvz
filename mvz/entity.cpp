@@ -57,21 +57,28 @@ void Entity::addSprite(const std::string& filename) {
 void Entity::addSpriteSheet(const std::string& filename, int u, int v) {
 	deleteSprite();
 	sprite = new Sprite(filename, 1.0f / u, 1.0f / v);
+	spritesWidth = 1.0f / u;
+	spritesHeight = 1.0f / v;
 }
 
 void Entity::addSpriteGrid(const std::string& filename, int u, int v, int cols, int rows) {
 	
 	deleteSpriteBatch();
-	//std::srand(std::time(0));
+
+	spritesWidth = 0;
+	spritesHeight = 0;
+
 	for (int x = 0; x < rows; x++) {
 		for (int y = 0; y < cols; y++) {
 			Sprite* s = new Sprite(filename, 1.0f / u, 1.0f / v);
-			s->spritePosition.x = x * (s->size.x);
-			s->spritePosition.y = y * (s->size.y);
-			//s->frame(std::rand() % (cols*rows));
+			s->spritePosition.x = x * (s->size.x) + s->size.x / 2;
+			s->spritePosition.y = y * (s->size.y) + s->size.y / 2;
+
 			spritebatch.push_back(s);
 		}
 	}
+	spritesWidth = rows * spritebatch[0]->size.x;
+	spritesHeight = cols * spritebatch[0]->size.y;
 }
 
 

@@ -10,11 +10,12 @@ class MenuScene : public Scene {
 
 public:
 	MenuScene();
-	~MenuScene();
+	virtual ~MenuScene();
 	virtual void update();
 
 private:
 	Button* startButton;
+	EntityEmpty* rgba;
 
 	void start();
 };

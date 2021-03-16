@@ -29,6 +29,9 @@ public:
 	Sprite* sprite;
 	std::vector<Sprite*> spritebatch;
 
+	int spritesWidth = 0;
+	int spritesHeight = 0;
+
 	std::vector<Entity*> children;
 
 	void addChild(Entity* child);

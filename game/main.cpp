@@ -14,16 +14,18 @@
 #include <map>
 #include <mvz/globals.h>
 
-int main(void)
-{
-	Renderer renderer(1280, 720);
+int main(void) {
+
+	//Renderer renderer(1280, 720);
+	Renderer renderer(1920, 1080);
 
 	std::map<std::string, Scene*> scenes = {
-		{"game", new MainScene()}/*,
-		{"menu", new MenuScene()}*/
+		{"menu", new MenuScene()},
+		{"game", new MainScene()}
 	};
+	//scenes.insert(std::pair<std::string, Scene*>("menu", new MenuScene));
 
-	scenes.insert(std::pair<std::string, Scene*>("menu", new MenuScene));
+	globals.currentScene = "menu";
 
 	SceneManager* sceneManager = new SceneManager(scenes);
 
@@ -31,7 +33,7 @@ int main(void)
 
 		sceneManager->run(renderer);
 
-	} // Check if the ESC key was pressed or the window was closed
+	} 
 
 	for (std::map<std::string, Scene*>::iterator it = scenes.begin(); it != scenes.end(); ++it) {
 		delete it->second;

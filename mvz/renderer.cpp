@@ -87,7 +87,8 @@ void Renderer::renderSprite(glm::mat4 modelMatrix, Sprite * sprite) {
 
 	glUniform2f(glGetUniformLocation(programID, "UVoffset"), sprite->uvoffset.x, sprite->uvoffset.y);
 	glVertexAttrib3f(glGetAttribLocation(programID, "spritePosition"), sprite->spritePosition.x, sprite->spritePosition.y, 0);
-
+	glUniform4f(glGetUniformLocation(programID, "blendColor"), (float)sprite->color.r / 255.0f, (float)sprite->color.g / 255.0f, (float)sprite->color.b / 255.0f, (float)sprite->color.a / 255.0f);
+	
 	sprite->generateBuffers();
 
 	//Send our transformation to the currently bound shader,

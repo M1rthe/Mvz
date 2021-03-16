@@ -13,6 +13,8 @@ Sprite::Sprite(const std::string& imagepath, float u, float v) {
 	_width = 0;
 	_height = 0;
 
+	color = RGBAColor(255, 255, 255, 255);
+
 	spritePosition = Vector2(0.0, 0.0);
 
 	uvdim = Vector2(u, v);
@@ -28,6 +30,8 @@ Sprite::~Sprite() {
 	glDeleteBuffers(1, &_vertexbuffer);
 	glDeleteBuffers(1, &_uvbuffer);
 	glDeleteTextures(1, &_texture); // texture created in loadTGA() with glGenTextures()
+
+	//delete pixelBufferData;
 }
 
 GLuint Sprite::loadTGA(const std::string& imagepath) {
@@ -224,4 +228,35 @@ int Sprite::frame(int f) {
 	_frame = f;
 
 	return _frame;
+}
+
+void Sprite::grayscaleAsAlphaMap() {
+
+	/*
+	int amountOfPixels = size.x * size.y;
+
+	if (pixelBufferData != nullptr) {
+		delete pixelBufferData;
+		pixelBufferData = nullptr;
+	}
+
+	pixelBufferData = new unsigned char[amountOfPixels];
+
+	std::cout << "amountOfPixels: "<<amountOfPixels<<"("<< _width <<" * "<< _height <<")\n";
+
+	int counter = 0;
+	for (int i = 0; i < amountOfPixels; i++) {
+
+		pixelBufferData[counter + 0] = 255;
+		pixelBufferData[counter + 1] = 255;
+		pixelBufferData[counter + 2] = 255;
+		pixelBufferData[counter + 3] = pixelBufferData[(counter + 3) / 4];
+		
+		counter += 4;
+	}
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixelBufferData);
+	*/
 }

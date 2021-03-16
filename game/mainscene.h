@@ -5,6 +5,7 @@
 #include <mvz/scene.h>
 #include <mvz/entity.h>
 #include <mvz/entityempty.h>
+#include <mvz/button.h>
 
 class MainScene : public Scene {
 
@@ -14,8 +15,11 @@ public:
 	virtual void update();
 
 private:
+	Button* backButton;
 	EntityEmpty* pencils;
 	EntityEmpty* tileset;
+
+	void goBack();
 };
 
 #endif 

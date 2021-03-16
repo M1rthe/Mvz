@@ -5,6 +5,7 @@
 #include <mvz/vectorx.h>
 #include <GL/glew.h>
 #include <vector>
+#include <mvz/color.h>
 
 class Sprite {
 
@@ -24,6 +25,10 @@ public:
 
 	void generateBuffers();
 
+	void grayscaleAsAlphaMap();
+
+	RGBAColor color;
+
 	Vector2 spritePosition; //For spritebatch
 
 	Vector2 uvoffset;
@@ -38,10 +43,12 @@ private:
 
 	Vector2 uvdim;
 
-	int _width;
-	int _height;
+	int _width = 0;
+	int _height = 0;
 
 	int _frame = 0;
+
+	//unsigned char* pixelBufferData;
 };
 
 #endif /* SPRITE_H */

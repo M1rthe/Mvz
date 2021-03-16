@@ -2,7 +2,6 @@
 
 SceneManager::SceneManager(std::map<std::string, Scene*> scenesP) {
 	scenes = scenesP;
-	globals.currentScene = "game";
 }
 
 SceneManager::~SceneManager() {
