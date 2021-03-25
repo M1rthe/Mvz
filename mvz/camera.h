@@ -11,6 +11,7 @@
 #include <glm/gtx/rotate_vector.hpp>
 
 #include <mvz/vectorx.h>
+#include <mvz/globals.h>
 
 class Camera {
 

@@ -8,6 +8,8 @@ public:
     std::string currentScene;
     double time = 0.0;
     double deltaTime = 0.0;
+    int windowWidth = 1280;
+    int windowHeight = 720;
 
 public:
     Globals() = default;

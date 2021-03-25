@@ -45,8 +45,8 @@ void Input::updateInput(GLFWwindow* w) {
 	glfwGetWindowSize(window, &windowWidth, &windowHeight);
 	glfwGetCursorPos(window, &mouseX, &mouseY);
 
-	mouseX = ((float)1280 / windowWidth) * mouseX;
-	mouseY = ((float)720 / windowHeight) * mouseY;
+	mouseX = ((float)globals.windowWidth / windowWidth) * mouseX;
+	mouseY = ((float)globals.windowHeight / windowHeight) * mouseY;
 
 	for (unsigned int i = 0; i < GLFW_MOUSE_BUTTON_LAST; i++) {
 		handleMouse(i);

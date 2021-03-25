@@ -4,6 +4,8 @@ MainScene::MainScene() : Scene() {
 
 	backButton = new Button(Vector2(0, 0), "Back", "assets/kingkong.tga", std::bind(&MainScene::goBack, this), true);
 	addChild(backButton);
+	//backButton->sprite->color = BLUE;
+	backButton->textColor(RED);
 
 	pencils = new EntityEmpty();
 	pencils->addSpriteSheet("assets/frameTest.tga", 2, 1); //pencils.tga

@@ -36,9 +36,9 @@ public:
 
 	void addChild(Entity* child);
 	void removeChild(Entity* child);
-	void addSprite(const std::string& filename);
-	void addSpriteSheet(const std::string& filename, int u, int v);
-	void addSpriteGrid(const std::string& filename, int u, int v, int cols, int rows);
+	void addSprite(const std::string& filename, bool grayscale = false);
+	void addSpriteSheet(const std::string& filename, int u, int v, bool grayscale = false);
+	void addSpriteGrid(const std::string& filename, int u, int v, int cols, int rows, bool grayscale = false);
 
 	Input* input() { return _input; };
 

@@ -8,16 +8,14 @@ MenuScene::MenuScene() : Scene() {
 	texts.push_back("Game");
 	
 	startButton = new Button(Vector2(0, 0), texts, "assets/kingkong.tga", std::bind(&MenuScene::start, this), true);
-	startButton->sprite->color = RED;
 	addChild(startButton);
+	//startButton->sprite->color = RED;
+	startButton->textColor(BLUE);
 
 	rgba = new EntityEmpty();
 	rgba->addSprite("assets/rgba.tga");
 	rgba->position = Vector2(700, 400);
 	addChild(rgba);
-
-	HEXColor red = Color::RGBA2HEX(RED);
-	RGBAColor r = Color::HEX2RGBA(red.hex);
 }
 
 MenuScene::~MenuScene() {

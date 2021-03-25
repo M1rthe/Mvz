@@ -10,7 +10,7 @@
 class Sprite {
 
 public:
-	Sprite(const std::string& imagepath, float u, float v);
+	Sprite(const std::string& imagepath, float u, float v, bool grayscale = false);
 	virtual ~Sprite();
 
 	GLuint texture() { return _texture; };
@@ -25,8 +25,6 @@ public:
 
 	void generateBuffers();
 
-	void grayscaleAsAlphaMap();
-
 	RGBAColor color;
 
 	Vector2 spritePosition; //For spritebatch
@@ -35,7 +33,7 @@ public:
 	Vector2 size;
 
 private:
-	GLuint loadTGA(const std::string& imagepath);
+	GLuint loadTGA(const std::string& imagepath, bool grayscale = false);
 
 	GLuint _texture;
 	GLuint _vertexbuffer;
@@ -47,8 +45,6 @@ private:
 	int _height = 0;
 
 	int _frame = 0;
-
-	//unsigned char* pixelBufferData;
 };
 
 #endif /* SPRITE_H */

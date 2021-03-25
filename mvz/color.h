@@ -78,8 +78,8 @@ struct Color {
 		std::string hex = "";
 		char values[] = {'0', '1', '2', '3', '4',  '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
-		hex += values[(int)std::floor(rgba.r/16)];
-		hex += values[rgba.r%16];
+		hex += values[(int)std::floor(rgba.r / 16)];
+		hex += values[rgba.r % 16];
 		hex += values[(int)std::floor(rgba.g / 16)];
 		hex += values[rgba.g % 16];
 		hex += values[(int)std::floor(rgba.b / 16)];

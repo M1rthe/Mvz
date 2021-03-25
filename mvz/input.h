@@ -3,6 +3,7 @@
 
 #include <GLFW/glfw3.h>
 #include <mvz/vectorx.h>
+#include <mvz/globals.h>
 
 enum KeyCode {
 

@@ -12,8 +12,12 @@ class Button : public Entity {
 public:
 	Button(Vector2 pos, std::string txt, std::string spriteName, std::function<void()> cbf, bool autoTextSize);
 	Button(Vector2 pos, std::vector<std::string> txt, std::string spriteName, std::function<void()> cbf, bool autoTextSize);
-	~Button();
+	virtual ~Button();
 	virtual void update();
+
+	void textColor(RGBAColor color);
+	void textColor(HEXColor color);
+
 
 private:
 	Text* text;

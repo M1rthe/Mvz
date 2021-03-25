@@ -9,8 +9,8 @@
 
 Renderer::Renderer(unsigned int w, unsigned int h) {
 
-	window_width = w;
-	window_height = h;
+	globals.windowWidth = w;
+	globals.windowHeight = h;
 
 	this->init();
 }
@@ -34,7 +34,7 @@ int Renderer::init() {
 	glfwWindowHint(GLFW_SAMPLES, 4);
 
 	//Open a window and create its OpenGL context
-	_window = glfwCreateWindow(window_width, window_height, "Game", NULL, NULL);
+	_window = glfwCreateWindow(globals.windowWidth, globals.windowHeight, "Game", NULL, NULL);
 	if (_window == NULL) {
 		fprintf( stderr, "Failed to open GLFW window.\n" );
 		glfwTerminate();

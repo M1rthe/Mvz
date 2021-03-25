@@ -24,9 +24,6 @@ public:
 	void renderEntity(glm::mat4 modelMatrix, Entity * entity);
 	GLFWwindow* window() { return _window; };
 
-	unsigned int width() { return window_width; };
-	unsigned int height() { return window_height; };
-
 	double updateDeltaTime();
 
 private:
@@ -34,8 +31,6 @@ private:
 	int init();
 
 	GLFWwindow* _window;
-	unsigned int window_width;
-	unsigned int window_height;
 
 	GLuint loadShaders(
 		const std::string& vertex_file_path,

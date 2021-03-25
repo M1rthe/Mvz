@@ -12,7 +12,7 @@ Button::Button(Vector2 pos, std::string txt, std::string spriteName, std::functi
 	text = new Text();
 	addChild(text);
 	text->setText(txt);
-	text->color(RGBAColor(0, 0, 0));
+	//text->color(RGBAColor(0, 0, 0));
 	if (autoTextSize) {
 		float s = (float)sprite->width() / (float)text->spritesWidth;
 		text->scale = Vector2(s, s);
@@ -35,7 +35,7 @@ Button::Button(Vector2 pos, std::vector<std::string> txt, std::string spriteName
 	text = new Text();
 	addChild(text);
 	text->setTextLine(txt);
-	text->color(RGBAColor(0, 0, 0));
+	//text->color(RGBAColor(0, 0, 0));
 	if (autoTextSize) {
 		float s = (float)sprite->width() / (float)text->spritesWidth;
 		text->scale = Vector2(s, s);
@@ -62,5 +62,19 @@ void Button::update() {
 
 			callbackFunction();
 		}
+	}
+}
+
+void Button::textColor(RGBAColor color) {
+	for (size_t i = 0; i < text->spritebatch.size(); i++)
+	{
+		text->spritebatch[i]->color = color;
+	}
+}
+
+void Button::textColor(HEXColor color) {
+	for (size_t i = 0; i < text->spritebatch.size(); i++)
+	{
+		text->spritebatch[i]->color = Color::HEX2RGBA(color.hex);
 	}
 }

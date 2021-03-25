@@ -13,8 +13,6 @@ public:
 
 	void setText(std::string txt);
 	void setTextLine(std::vector<std::string> txt);
-	void color(RGBAColor color);
-	void color(HEXColor color);
 };
 
 #endif

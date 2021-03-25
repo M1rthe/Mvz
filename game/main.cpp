@@ -16,8 +16,8 @@
 
 int main(void) {
 
-	//Renderer renderer(1280, 720);
-	Renderer renderer(1920, 1080);
+	Renderer renderer(1280, 720);
+	//Renderer renderer(1920, 1080);
 
 	std::map<std::string, Scene*> scenes = {
 		{"menu", new MenuScene()},
