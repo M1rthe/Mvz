@@ -2,35 +2,50 @@
 
 MenuScene::MenuScene() : Scene() {
 	
-	std::vector<std::string> texts;
-	texts.push_back("Start");
-	texts.push_back("The");
-	texts.push_back("Game");
-	
-	startButton = new Button(Vector2(0, 0), texts, "assets/kingkong.tga", std::bind(&MenuScene::start, this), true);
-	addChild(startButton);
-	//startButton->sprite->color = RED;
-	startButton->textColor(BLUE);
+	singleplayerButton = new Button("Singleplayer", "assets/button.tga", std::bind(&MenuScene::gotoSingleplayer, this), true);
+	singleplayerButton->scale = Vector2(5, 3); 
+	singleplayerButton->position = Vector2(globals.windowWidth/2, globals.windowHeight * 0.3);
+	singleplayerButton->sprite->color = RED;
+	singleplayerButton->textColor(WHITE);
+	singleplayerButton->calculatePositions();
+	addChild(singleplayerButton);
 
+	multiplayerButton = new Button("Multiplayer", "assets/button.tga", std::bind(&MenuScene::gotoMultiplayer, this), true);
+	multiplayerButton->scale = Vector2(5, 3); 
+	multiplayerButton->position = Vector2(globals.windowWidth / 2, globals.windowHeight * 0.5);
+	multiplayerButton->sprite->color = RED;
+	multiplayerButton->textColor(WHITE);
+	multiplayerButton->calculatePositions();
+	addChild(multiplayerButton);
+
+	/*
 	rgba = new EntityEmpty();
 	rgba->addSprite("assets/rgba.tga");
 	rgba->position = Vector2(700, 400);
 	addChild(rgba);
+	*/
 }
 
 MenuScene::~MenuScene() {
-	removeChild(startButton);
-	delete startButton;
+	removeChild(singleplayerButton);
+	delete singleplayerButton;
 
-	removeChild(rgba);
-	delete rgba;
+	removeChild(multiplayerButton);
+	delete multiplayerButton;
+
+	//removeChild(rgba);
+	//delete rgba;
 }
 
 void MenuScene::update() {
-	rgba->rotation.z += deltaTime;
+	//rgba->rotation.z += deltaTime;
 }
 
-void MenuScene::start() {
+void MenuScene::gotoSingleplayer() {
 	globals.currentScene = "game";
+}
+
+void MenuScene::gotoMultiplayer() {
+	globals.currentScene = "multiplayerMenu";
 }
 

@@ -61,7 +61,7 @@ void Entity::addSpriteSheet(const std::string& filename, int u, int v, bool gray
 	spritesHeight = 1.0f / v;
 }
 
-void Entity::addSpriteGrid(const std::string& filename, int u, int v, int cols, int rows, bool grayscale) {
+void Entity::addSpriteGrid(const std::string& filename, int u, int v, int cols, int rows, bool grayscale ) {
 	
 	deleteSpriteBatch();
 

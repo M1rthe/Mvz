@@ -141,6 +141,8 @@ void Renderer::renderSprite(glm::mat4 modelMatrix, Sprite * sprite) {
 
 void Renderer::renderScene(Scene * scene) {
 
+	glViewport(0, 0, scene->input()->getWindowWidth(), scene->input()->getWindowHeight());
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	this->viewMatrix = scene->camera->viewMatrix;

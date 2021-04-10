@@ -8,6 +8,8 @@
 #include <mvz/camera.h>
 #include "mainscene.h"
 #include "menuscene.h"
+#include "multiplayermenuscene.h"
+#include "multiplayerscene.h"
 #include <string>
 #include <mvz/scene.h>
 #include <mvz/scenemanager.h>
@@ -21,7 +23,9 @@ int main(void) {
 
 	std::map<std::string, Scene*> scenes = {
 		{"menu", new MenuScene()},
-		{"game", new MainScene()}
+		{"game", new MainScene()},
+		{"multiplayerMenu", new MultiplayerMenuScene()},
+		{"multiplayerScene", new MultiplayerScene()}
 	};
 	//scenes.insert(std::pair<std::string, Scene*>("menu", new MenuScene));
 

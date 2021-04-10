@@ -2,44 +2,32 @@
 
 MainScene::MainScene() : Scene() {
 
-	backButton = new Button(Vector2(0, 0), "Back", "assets/kingkong.tga", std::bind(&MainScene::goBack, this), true);
+	backButton = new Button("Back", "assets/button.tga", std::bind(&MainScene::goBack, this), true);
+	backButton->scale = Vector2(3, 3);
+	backButton->position = Vector2(-(backButton->sprite->width() * backButton->scale.x / 2)+globals.windowWidth, -(backButton->sprite->height() * backButton->scale.y / 2)+globals.windowHeight);
 	addChild(backButton);
-	//backButton->sprite->color = BLUE;
-	backButton->textColor(RED);
+	backButton->sprite->color = BLUE;
+	backButton->textColor(WHITE);
 
-	pencils = new EntityEmpty();
-	pencils->addSpriteSheet("assets/frameTest.tga", 2, 1); //pencils.tga
-	pencils->position = Vector2(200, 400);
-	addChild(pencils);
-
-	tileset = new EntityEmpty();
-	tileset->addSpriteGrid("assets/tileset.tga", 8, 8, 4, 4);
-	tileset->position = Vector2(800, 400);
-	addChild(tileset);
+	player = new Player();
+	player->addSprite("assets/player.tga", true);
+	player->sprite->color = PINK;
+	player->scale = Vector2(2, 2);
+	player->position = Vector2(200, 400);
+	addChild(player);
 }
 
 MainScene::~MainScene() {
 
-	removeChild(pencils);
-	removeChild(tileset);
 	removeChild(backButton);
-
-	delete pencils;
-	delete tileset;
 	delete backButton;
+
+	removeChild(player);
+	delete player;
 }
 
 void MainScene::update() {
-
-	if (input()->getKeyDown(F)) {
-		pencils->sprite->frame(pencils->sprite->frame() + 1);
-
-		std::srand(std::time(0));
-		for (size_t i = 0; i < tileset->spritebatch.size(); i++)
-		{
-			tileset->spritebatch[i]->frame(std::rand() % (tileset->spritebatch.size()));
-		}
-	}
+	
 }
 
 void MainScene::goBack() {

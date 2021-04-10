@@ -6,6 +6,7 @@
 #include <mvz/entity.h>
 #include <mvz/entityempty.h>
 #include <mvz/button.h>
+#include "player.h"
 
 class MainScene : public Scene {
 
@@ -16,8 +17,7 @@ public:
 
 private:
 	Button* backButton;
-	EntityEmpty* pencils;
-	EntityEmpty* tileset;
+	Player* player;
 
 	void goBack();
 };

@@ -10,7 +10,7 @@
 class Sprite {
 
 public:
-	Sprite(const std::string& imagepath, float u, float v, bool grayscale = false);
+	Sprite(const std::string& imagepath, float u, float v, bool grayscale);
 	virtual ~Sprite();
 
 	GLuint texture() { return _texture; };

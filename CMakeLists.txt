@@ -90,6 +90,10 @@ add_library(mvz # ar rcs libmvz.a
 	mvz/color.h
 	mvz/text.h
 	mvz/text.cpp
+	mvz/server.h
+	mvz/server.cpp
+	mvz/client.h
+	mvz/client.cpp
 )
 
 # game
@@ -99,11 +103,24 @@ add_executable(game # g++ game/main.cpp -o game
 	game/mainscene.cpp
 	game/menuscene.h
 	game/menuscene.cpp
+	game/multiplayermenuscene.h
+	game/multiplayermenuscene.cpp
+	game/multiplayerscene.h
+	game/multiplayerscene.cpp
+	game/player.h
+	game/player.cpp
 )
 target_link_libraries(game # g++ -lmvz
 	mvz
 	${ALL_GRAPHICS_LIBS}
 )
+
+IF(WIN32)
+target_link_libraries(mvz
+	ws2_32
+)
+ENDIF(WIN32)
+
 # Copy assets and shaders to the build directory
 # (In Visual Studio, copy these directories to either 'Release' or 'Build')
 file(

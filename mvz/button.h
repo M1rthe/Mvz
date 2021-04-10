@@ -10,18 +10,20 @@
 class Button : public Entity {
 
 public:
-	Button(Vector2 pos, std::string txt, std::string spriteName, std::function<void()> cbf, bool autoTextSize);
-	Button(Vector2 pos, std::vector<std::string> txt, std::string spriteName, std::function<void()> cbf, bool autoTextSize);
+	Button(std::string txt, std::string spriteName, std::function<void()> cbf, bool autoTextSize);
+	Button(std::vector<std::string> txt, std::string spriteName, std::function<void()> cbf, bool autoTextSize);
 	virtual ~Button();
 	virtual void update();
 
 	void textColor(RGBAColor color);
 	void textColor(HEXColor color);
 
+	void calculatePositions();
 
 private:
 	Text* text;
 	std::function<void()> callbackFunction = NULL;
+	bool autoTextSize;
 };
 
 #endif

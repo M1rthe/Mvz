@@ -14,10 +14,12 @@ public:
 	virtual void update();
 
 private:
-	Button* startButton;
-	EntityEmpty* rgba;
+	Button* singleplayerButton;
+	Button* multiplayerButton;
+	//EntityEmpty* rgba;
 
-	void start();
+	void gotoSingleplayer();
+	void gotoMultiplayer();
 };
 
 #endif 

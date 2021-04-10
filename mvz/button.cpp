@@ -1,49 +1,39 @@
 #include <mvz/button.h>
 
-Button::Button(Vector2 pos, std::string txt, std::string spriteName, std::function<void()> cbf, bool autoTextSize) : Entity() {
+Button::Button(std::string txt, std::string spriteName, std::function<void()> cbf, bool autoTextSize) : Entity() {
 
 	//SPRITE
 	addSprite(spriteName);
-	//POSITION
-	pos.x += sprite->width() / 2;
-	pos.y += sprite->height() / 2;
-	position = pos;
+
 	//TEXT
 	text = new Text();
 	addChild(text);
 	text->setText(txt);
-	//text->color(RGBAColor(0, 0, 0));
-	if (autoTextSize) {
-		float s = (float)sprite->width() / (float)text->spritesWidth;
-		text->scale = Vector2(s, s);
-	}
-	text->position.x = pos.x - sprite->width();
-	text->position.y = pos.y - (sprite->height() / 2) - (text->spritesHeight * text->scale.y / 2);
+	this->autoTextSize = autoTextSize;
+
 	//CALLBACK
 	callbackFunction = cbf;
+
+	//POSITION
+	calculatePositions();
 }
 
-Button::Button(Vector2 pos, std::vector<std::string> txt, std::string spriteName, std::function<void()> cbf, bool autoTextSize) : Entity() {
+Button::Button(std::vector<std::string> txt, std::string spriteName, std::function<void()> cbf, bool autoTextSize) : Entity() {
 
 	//SPRITE
 	addSprite(spriteName);
-	//POSITION
-	pos.x += sprite->width()/2;
-	pos.y += sprite->height()/2;
-	position = pos;
+
 	//TEXT
 	text = new Text();
 	addChild(text);
 	text->setTextLine(txt);
-	//text->color(RGBAColor(0, 0, 0));
-	if (autoTextSize) {
-		float s = (float)sprite->width() / (float)text->spritesWidth;
-		text->scale = Vector2(s, s);
-	}
-	text->position.x = pos.x - sprite->width();
-	text->position.y = pos.y - (sprite->height() / 2) - (text->spritesHeight * text->scale.y / 2);
-	//CALLBACL
+	this->autoTextSize = autoTextSize;
+
+	//CALLBACK
 	callbackFunction = cbf;
+
+	//POSITION
+	calculatePositions();
 }
 
 Button::~Button() {
@@ -55,10 +45,10 @@ Button::~Button() {
 void Button::update() {
 
 	if (input()->getMouseDown(0)) {
-		if ((float)input()->getMouseX() > position.x - (sprite->width() / 2) &&
-			(float)input()->getMouseX() < position.x + (sprite->width() / 2) &&
-			(float)input()->getMouseY() > position.y - (sprite->height() / 2) &&
-			(float)input()->getMouseY() < position.y + (sprite->height() / 2)) {
+		if ((float)input()->getMouseX() > position.x - (sprite->width() * scale.x / 2) &&
+			(float)input()->getMouseX() < position.x + (sprite->width() * scale.x / 2) &&
+			(float)input()->getMouseY() > position.y - (sprite->height() * scale.y / 2) &&
+			(float)input()->getMouseY() < position.y + (sprite->height() * scale.y / 2)) {
 
 			callbackFunction();
 		}
@@ -77,4 +67,23 @@ void Button::textColor(HEXColor color) {
 	{
 		text->spritebatch[i]->color = Color::HEX2RGBA(color.hex);
 	}
+}
+
+void Button::calculatePositions() {
+
+	if (autoTextSize) {
+
+		float sw = ((float)sprite->width() / (float)text->spritesWidth) * 0.9f;
+		float sh = ((float)sprite->height() / (float)text->spritesHeight) * 0.9f;
+
+		if (sw < sh) {
+			text->scale = Vector2(sw, sw * (scale.x / scale.y));
+		}
+		else {
+			text->scale = Vector2(sh, sh);
+		}
+	}
+
+	text->position.x = -(text->spritesWidth * text->scale.x / 2);
+	text->position.y = -(text->spritesHeight * text->scale.y / 2);
 }

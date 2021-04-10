@@ -11,13 +11,13 @@ Scene::~Scene() {
 
 void Scene::updateScene() {
 
-	time = globals.time;
-	deltaTime = globals.deltaTime;
-
 	updateEntity(this);
 }
 
 void Scene::updateEntity(Entity* entity) {
+
+	entity->time = globals.time;
+	entity->deltaTime = globals.deltaTime;
 
 	entity->update();
 

@@ -93,6 +93,10 @@ GLuint Sprite::loadTGA(const std::string& imagepath, bool grayscale) {
 	// Everything is in memory now, close the file
 	fclose(file);
 
+	if (bitdepth != 1 && grayscale) {
+		std::cout << imagepath << " is not 1 bit (grayscale == true)\n";
+	}
+
 	if (bitdepth == 1 && grayscale) {
 
 		// use 8-bit grayscale texture as 32-bit white + alpha
