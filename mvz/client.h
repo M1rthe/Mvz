@@ -11,6 +11,7 @@ class Client
 public:
 	
 	Client();
+	virtual ~Client();
 
 	bool Connect(char* host, unsigned short port);
 
@@ -19,9 +20,9 @@ public:
 
 	bool Disconnect();
 
+private:
 	unsigned int GetIP(char* host);
 
-private:
 	SOCKET TCPSocket;
 };
 

@@ -36,6 +36,9 @@ MultiplayerMenuScene::MultiplayerMenuScene() : Scene() {
 }
 
 MultiplayerMenuScene::~MultiplayerMenuScene() {
+
+	std::cout << "DESTRUCTOR in multiplayer menu scene" << std::endl;
+
 	removeChild(backButton);
 	delete backButton;
 
@@ -45,8 +48,16 @@ MultiplayerMenuScene::~MultiplayerMenuScene() {
 	removeChild(joinServerButton);
 	delete joinServerButton;
 
-	delete client;
-	delete server;
+	if (isJoinig) 
+	{
+		client->Disconnect();
+		delete client;
+	}
+
+	if (isHosting) 
+	{
+		delete server;
+	}
 }
 
 void MultiplayerMenuScene::update() {

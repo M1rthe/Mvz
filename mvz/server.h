@@ -15,6 +15,8 @@ class Server
 public:
 	
 	Server();
+	virtual ~Server();
+
 	bool Start(unsigned short port);
 	void Listen();
 	void ListenASync();

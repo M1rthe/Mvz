@@ -14,6 +14,11 @@ Server::Server()
 	listeningSocket = INVALID_SOCKET;
 }
 
+Server::~Server()
+{
+
+}
+
 bool Server::Start(unsigned short port) {
 
 	if (listeningSocket != INVALID_SOCKET)
@@ -115,6 +120,7 @@ void Server::Listen()
 				std::cout << "Failed on accept, #" << WSAGetLastError() << std::endl;
 			}
 
+			std::cout << "Client " << clientSocket << " joined server" << std::endl;
 			clientConnections.push_back(clientSocket);
 		}
 
@@ -177,11 +183,11 @@ std::string Server::Receive(SOCKET clientSocket)
 		else if (totalBytes == 0)
 		{
 			// Connection closed
-			std::cout << clientSocket << "closed connection" << std::endl;
+			std::cout << "client closed connection (recv)" << std::endl;
 		}
 		else
 		{
-			std::cout << "Failed to receive message, #" << WSAGetLastError() << std::endl;
+			std::cout << "Failed to receive message, totalBytes: "<< totalBytes<<", #" << WSAGetLastError() << std::endl;
 		}
 	}
 

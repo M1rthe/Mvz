@@ -14,6 +14,11 @@ Client::Client()
 	//TCPSocket = INVALID_SOCKET;
 }
 
+Client::~Client() 
+{
+
+}
+
 bool Client::Connect(char* host, unsigned short port)
 {
 	if (TCPSocket != INVALID_SOCKET) 
@@ -117,7 +122,7 @@ std::string Client::Receive()
 			else if (totalBytes == 0)
 			{
 				// Connection closed
-				Disconnect();
+				//Disconnect();
 			}
 			else
 			{
@@ -132,7 +137,6 @@ std::string Client::Receive()
 
 bool Client::Disconnect()
 {
-	std::cout <<"Send(Disconnected)"<< std::endl;
 	Send("Disconnected");
 
 	if (shutdown(TCPSocket, SD_SEND) == SOCKET_ERROR)

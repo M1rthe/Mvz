@@ -36,14 +36,15 @@ int main(void) {
 	while (glfwGetKey(renderer.window(), GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(renderer.window()) == 0) {
 
 		sceneManager->run(renderer);
-
 	} 
 
-	for (std::map<std::string, Scene*>::iterator it = scenes.begin(); it != scenes.end(); ++it) {
-		delete it->second;
-	}
-
 	delete sceneManager;
+
+	for (std::map<std::string, Scene*>::iterator itr = scenes.begin(); itr != scenes.end(); itr++)
+	{
+		delete (itr->second);
+	}
+	scenes.clear();
 
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();

@@ -11,7 +11,7 @@ class Scene : public Entity {
 public:
 
 	Scene();
-	~Scene();
+	virtual ~Scene();
 
 	Camera* camera;
 

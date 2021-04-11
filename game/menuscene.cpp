@@ -27,6 +27,7 @@ MenuScene::MenuScene() : Scene() {
 }
 
 MenuScene::~MenuScene() {
+
 	removeChild(singleplayerButton);
 	delete singleplayerButton;
 

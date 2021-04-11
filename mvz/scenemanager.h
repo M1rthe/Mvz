@@ -12,7 +12,7 @@ class SceneManager {
 
 public:
 	SceneManager(std::map<std::string, Scene*> scenesP);
-	~SceneManager();
+	virtual ~SceneManager();
 
 	void run(Renderer renderer);
 

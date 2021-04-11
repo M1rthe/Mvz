@@ -7,7 +7,7 @@ class EntityEmpty : public Entity {
 
 public:
 	EntityEmpty();
-	~EntityEmpty();
+	virtual ~EntityEmpty();
 	virtual void update();
 };
 
