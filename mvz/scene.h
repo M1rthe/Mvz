@@ -12,10 +12,13 @@ public:
 
 	Scene();
 	virtual ~Scene();
+	virtual void onLoad() {}
 
 	Camera* camera;
 
 	void updateScene();
+
+	void switchScene(std::string scene);
 
 private:
 	void updateEntity(Entity* entity);

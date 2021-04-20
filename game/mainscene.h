@@ -6,7 +6,7 @@
 #include <mvz/entity.h>
 #include <mvz/entityempty.h>
 #include <mvz/button.h>
-#include "player.h"
+#include "mysingleplayer.h"
 
 class MainScene : public Scene {
 
@@ -17,7 +17,7 @@ public:
 
 private:
 	Button* backButton;
-	Player* player;
+	MySinglePlayer* player;
 
 	void goBack();
 };

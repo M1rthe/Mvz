@@ -16,7 +16,7 @@ Server::Server()
 
 Server::~Server()
 {
-
+	//Disconnect();
 }
 
 bool Server::Start(unsigned short port) {
@@ -106,7 +106,7 @@ void Server::Listen()
 		int totalBytes = select(0, &readSet, nullptr, nullptr, &timeOut);
 		if (totalBytes == SOCKET_ERROR)
 		{
-			std::cout << "Failed on select, #" << WSAGetLastError() << std::endl;
+			std::cout << "SERVER listen: Failed on select, #" << WSAGetLastError() << std::endl;
 
 			return;
 		}
@@ -130,7 +130,7 @@ void Server::Listen()
 
 void Server::ListenASync()
 {
-	std::thread listeningThread(&Server::Listen, this);
+	listeningThread = std::thread(&Server::Listen, this);
 	listeningThread.detach();
 }
 
@@ -138,15 +138,66 @@ void Server::HandleClients()
 {
 	for (size_t i = 0; i < clientConnections.size(); i++)
 	{
-		std::string message = Receive(clientConnections[i]);
+		std::string message = ReceiveMessage(clientConnections[i]);
 		if (message != "")
 		{
-			Send(clientConnections[i], "server echo: "+message);
+			//Send(clientConnections[i], "server echo: "+message);
+			Send(clientConnections[i], message);
 		}
 	}
 }
 
-std::string Server::Receive(SOCKET clientSocket)
+std::vector<char> Server::Receive(SOCKET clientSocket)
+{
+	std::vector<char> data;
+	char recvbuf[512] = { NULL };
+
+	// FD
+	FD_SET readSet;
+	FD_ZERO(&readSet);
+	FD_SET(clientSocket, &readSet);
+
+	// TimeOut 
+	timeval timeOut;
+	timeOut.tv_usec = 0;
+
+	// Select
+	int totalBytes = select(0, &readSet, nullptr, nullptr, &timeOut);
+
+	if (totalBytes == SOCKET_ERROR)
+	{
+		std::cout << "Server receive: Failed on select, #" << WSAGetLastError() << std::endl;
+	}
+	if (totalBytes > 0)
+	{
+		totalBytes = recv(clientSocket, recvbuf, 512, 0);
+		if (totalBytes > 0)
+		{
+			//message.append(&(recvbuf[0]), totalBytes);
+			//recvbuf[0] = '\0';
+		}
+		else if (totalBytes == 0)
+		{
+			// Connection closed
+			std::cout << "client " << clientSocket << " closed connection" << std::endl;
+
+			clientConnections.erase(std::remove(clientConnections.begin(), clientConnections.end(), clientSocket), clientConnections.end());
+		}
+		else
+		{
+			std::cout << "Failed to receive message, totalBytes: "<< totalBytes<<", #" << WSAGetLastError() << std::endl;
+		}
+	}
+
+	for (int i = 0; i < totalBytes; i++)
+	{
+		data.push_back(recvbuf[i]);
+	}
+
+	return data;
+}
+
+std::string Server::ReceiveMessage(SOCKET clientSocket)
 {
 	std::string message;
 
@@ -164,7 +215,7 @@ std::string Server::Receive(SOCKET clientSocket)
 
 	if (totalBytes == SOCKET_ERROR)
 	{
-		std::cout << "Failed on select, #" << WSAGetLastError() << std::endl;
+		std::cout << "Server receive: Failed on select, #" << WSAGetLastError() << std::endl;
 
 		return "";
 	}
@@ -178,16 +229,18 @@ std::string Server::Receive(SOCKET clientSocket)
 			message.append(&(recvbuf[0]), totalBytes);
 			recvbuf[0] = '\0';
 
-			std::cout << "Receive: " << message << std::endl;
+			std::cout << message << std::endl;
 		}
 		else if (totalBytes == 0)
 		{
 			// Connection closed
-			std::cout << "client closed connection (recv)" << std::endl;
+			std::cout << "client " << clientSocket << " closed connection" << std::endl;
+
+			clientConnections.erase(std::remove(clientConnections.begin(), clientConnections.end(), clientSocket), clientConnections.end());
 		}
 		else
 		{
-			std::cout << "Failed to receive message, totalBytes: "<< totalBytes<<", #" << WSAGetLastError() << std::endl;
+			std::cout << "Failed to receive message, totalBytes: " << totalBytes << ", #" << WSAGetLastError() << std::endl;
 		}
 	}
 
@@ -220,3 +273,57 @@ void Server::Send(std::string message)
 	}
 }
 
+void Server::Send(std::vector<char> data)
+{
+	for (size_t i = 0; i < clientConnections.size(); i++)
+	{
+		Send(clientConnections[i], data);
+	}
+}
+
+void Server::Send(SOCKET clientSocket, std::vector<char> message)
+{
+	if (send(clientSocket, &message[0], message.size(), 0) == SOCKET_ERROR)
+	{
+		std::cout << "Failed to send message to " << clientSocket << ", #" << WSAGetLastError() << std::endl;
+
+		//return;
+	}
+}
+
+void Server::SendExcept(SOCKET socket, std::vector<char> message)
+{
+	for (size_t i = 0; i < clientConnections.size(); i++)
+	{
+		if (clientConnections[i] != socket) {
+			Send(clientConnections[i], message);
+		}
+	}
+}
+
+
+bool Server::Disconnect()
+{
+	Send("host disconnected");
+
+	if (listeningSocket != INVALID_SOCKET)
+	{
+		if (shutdown(listeningSocket, SD_RECEIVE) == SOCKET_ERROR)
+		{
+			std::cout << "Failed to shut down, #" << WSAGetLastError() << std::endl;
+			closesocket(listeningSocket);
+			listeningSocket = INVALID_SOCKET;
+
+			return false;
+		}
+
+		closesocket(listeningSocket);
+		listeningSocket = INVALID_SOCKET;
+
+		return true;
+	}
+
+	std::cout << "socket was already closed" << std::endl;
+
+	return true;
+}

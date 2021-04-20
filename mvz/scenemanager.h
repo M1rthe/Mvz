@@ -11,13 +11,16 @@
 class SceneManager {
 
 public:
-	SceneManager(std::map<std::string, Scene*> scenesP);
+	SceneManager(std::map<std::string, Scene*> scenesP, std::string current);
 	virtual ~SceneManager();
 
 	void run(Renderer renderer);
 
+	static void switchScene(std::string scene);
+	static std::string currentScene;
+	static std::map<std::string, Scene*> scenes;
+
 private:
-	std::map<std::string, Scene*> scenes;
 };
 
 #endif

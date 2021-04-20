@@ -43,10 +43,12 @@ void MenuScene::update() {
 }
 
 void MenuScene::gotoSingleplayer() {
-	globals.currentScene = "game";
+	//globals.currentScene = "game";
+	switchScene("game");
 }
 
 void MenuScene::gotoMultiplayer() {
-	globals.currentScene = "multiplayerMenu";
+	//globals.currentScene = "multiplayerMenu";
+	switchScene("multiplayerMenu");
 }
 

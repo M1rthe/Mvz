@@ -94,6 +94,7 @@ add_library(mvz # ar rcs libmvz.a
 	mvz/server.cpp
 	mvz/client.h
 	mvz/client.cpp
+	mvz/data.h
 )
 
 # game
@@ -107,8 +108,12 @@ add_executable(game # g++ game/main.cpp -o game
 	game/multiplayermenuscene.cpp
 	game/multiplayerscene.h
 	game/multiplayerscene.cpp
-	game/player.h
-	game/player.cpp
+	game/mysingleplayer.h
+	game/mysingleplayer.cpp
+	game/mymultiplayer.h
+	game/mymultiplayer.cpp
+	game/clientplayer.h
+	game/clientplayer.cpp
 )
 target_link_libraries(game # g++ -lmvz
 	mvz

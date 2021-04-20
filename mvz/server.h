@@ -23,12 +23,22 @@ public:
 	void HandleClients();
 
 	std::vector<SOCKET> clientConnections;
-	std::string Receive(SOCKET ClientSocket);
+
+	std::vector<char> Receive(SOCKET ClientSocket);
+	std::string ReceiveMessage(SOCKET ClientSocket);
+
 	void Send(SOCKET clientSocket, std::string message);
 	void Send(std::string message);
 
+	void Send(std::vector<char> message);
+	void Send(SOCKET clientSocket, std::vector<char> message);
+	void SendExcept(SOCKET socket, std::vector<char> message); 
+
+	bool Disconnect();
+
 private:
 	SOCKET listeningSocket;
+	std::thread listeningThread;
 };
 
 #endif // SERVER

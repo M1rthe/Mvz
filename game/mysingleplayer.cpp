@@ -1,28 +1,28 @@
-#include "player.h"
+#include "mysingleplayer.h"
 
-Player::Player() : Entity() {
-	speed = 70;
+MySinglePlayer::MySinglePlayer() : Entity() {
+	speed = 100;
 }
 
-Player::~Player() {
-
+MySinglePlayer::~MySinglePlayer() {
+	std::cout << "DESTRUCTOR MySinglePlayer" << std::endl;
 }
 
-void Player::update() {
+void MySinglePlayer::update() {
 
 	Vector2 newPos;
 
 	if (input()->getKey(KeyCode::W)) {
-		newPos.y -= speed * deltaTime;
+		newPos.y -= 1;
 	}
 	if (input()->getKey(KeyCode::A)) {
-		newPos.x -= speed * deltaTime;
+		newPos.x -= 1;
 	}
 	if (input()->getKey(KeyCode::S)) {
-		newPos.y += speed * deltaTime;
+		newPos.y += 1;
 	}
 	if (input()->getKey(KeyCode::D)) {
-		newPos.x += speed * deltaTime;
+		newPos.x += 1;
 	}
 
 	//NORMALIZE
@@ -35,6 +35,6 @@ void Player::update() {
 		newPos.y /= mag;
 	}
 
-	position += newPos;
+	position += newPos * speed * deltaTime;
 }
 

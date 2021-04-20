@@ -1,12 +1,9 @@
 #pragma once
 
-#include <string>
-#include <map>
-
 class Globals {
 
 public:
-    std::string currentScene;
+    //std::string currentScene;
     double time = 0.0;
     double deltaTime = 0.0;
     int windowWidth = 1280;

@@ -9,7 +9,7 @@ MainScene::MainScene() : Scene() {
 	backButton->sprite->color = BLUE;
 	backButton->textColor(WHITE);
 
-	player = new Player();
+	player = new MySinglePlayer();
 	player->addSprite("assets/player.tga", true);
 	player->sprite->color = PINK;
 	player->scale = Vector2(2, 2);
@@ -31,5 +31,6 @@ void MainScene::update() {
 }
 
 void MainScene::goBack() {
-	globals.currentScene = "menu";
+	switchScene("menu");
+	//globals.currentScene = "menu";
 }

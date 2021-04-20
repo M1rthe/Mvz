@@ -37,8 +37,6 @@ MultiplayerMenuScene::MultiplayerMenuScene() : Scene() {
 
 MultiplayerMenuScene::~MultiplayerMenuScene() {
 
-	std::cout << "DESTRUCTOR in multiplayer menu scene" << std::endl;
-
 	removeChild(backButton);
 	delete backButton;
 
@@ -48,47 +46,36 @@ MultiplayerMenuScene::~MultiplayerMenuScene() {
 	removeChild(joinServerButton);
 	delete joinServerButton;
 
-	if (isJoinig) 
-	{
-		client->Disconnect();
-		delete client;
-	}
-
-	if (isHosting) 
-	{
-		delete server;
-	}
+	//if (isHosting) 
+	//{
+	//	delete server;
+	//}
 }
 
 void MultiplayerMenuScene::update() {
 
-	if (isHosting)
-	{
-		server->HandleClients();
+	//if (isHosting)
+	//{
+	//	server->HandleClients();
 
-		if (input()->getKeyDown(KeyCode::H)) {
+	//	if (input()->getKeyDown(KeyCode::H)) {
 
-			server->Send("Hi everyone");
-		}
-	}
+	//		server->Send("Hi everyone");
+	//	}
+	//}
 
-	if (isJoinig)
-	{
-		std::string message = client->Receive();
-		if (message.size() > 0) {
-			std::cout << "Receive: "+message << std::endl;
-		}
+	//if (isJoinig)
+	//{
+	//	std::string message = client->Receive();
+	//	if (message.size() > 0) {
+	//		std::cout << message << std::endl;
+	//	}
 
-		if (input()->getKeyDown(KeyCode::H)) {
+	//	if (input()->getKeyDown(KeyCode::H)) {
 
-			client->Send("Hello :)");
-		}
-		if (input()->getKeyDown(KeyCode::Q)) {
-
-			isJoinig = false;
-			client->Disconnect();
-		}
-	}
+	//		client->Send("Hello :)");
+	//	}
+	//}
 }
 
 void MultiplayerMenuScene::goBack() {
@@ -96,28 +83,33 @@ void MultiplayerMenuScene::goBack() {
 	isHosting = false;
 	isJoinig = false;
 
-	client->Disconnect();
+	//client->Disconnect();
 
-	globals.currentScene = "menu";
+	//globals.currentScene = "menu";
+	switchScene("menu");
 }
 
 void MultiplayerMenuScene::createServer() {
 
-	//TODO: 2 scenes, een voor multiplayerHOST & een voor multiplayerJOINERS, want ze hebben een verschillende update functie, start gwn hier houden
-
-	server = new Server();
+	/*server = new Server();
 	server->Start(1337);
-	server->ListenASync();
+	server->ListenASync();*/
 
 	isHosting = true;
+
+	//globals.currentScene = "multiplayerSceneHost";
+	switchScene("multiplayerSceneHost");
 }
 
 void MultiplayerMenuScene::joinServer() {
 
-	client = new Client();
-	client->Connect("192.168.178.22", 1337);
+	//client = new Client();
+	//client->Connect("10.112.98.90", 1337); //10.112.98.90       //192.168.178.22
 
 	isJoinig = true;
+
+	//globals.currentScene = "multiplayerSceneJoin";
+	switchScene("multiplayerSceneJoin");
 }
 
 

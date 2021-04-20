@@ -2,9 +2,13 @@
 #define CLIENT_H
 
 #include <winsock2.h>
+#include <WS2tcpip.h>
 
+#include <sstream>
 #include <iostream>
 #include <string>
+
+#include "button.h"
 
 class Client
 {
@@ -14,9 +18,14 @@ public:
 	virtual ~Client();
 
 	bool Connect(char* host, unsigned short port);
+	bool Connect(unsigned short port);
 
 	void Send(std::string message);
-	std::string Receive();
+	void Send(std::vector<char> message);
+
+	//void Send(char* bytes); 
+	std::string ReceiveMessage();
+	std::vector<char> Receive();
 
 	bool Disconnect();
 

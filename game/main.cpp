@@ -25,13 +25,14 @@ int main(void) {
 		{"menu", new MenuScene()},
 		{"game", new MainScene()},
 		{"multiplayerMenu", new MultiplayerMenuScene()},
-		{"multiplayerScene", new MultiplayerScene()}
+		{"multiplayerSceneHost", new MultiplayerScene(true)},
+		{"multiplayerSceneJoin", new MultiplayerScene(false)}
 	};
 	//scenes.insert(std::pair<std::string, Scene*>("menu", new MenuScene));
 
-	globals.currentScene = "menu";
+	SceneManager* sceneManager = new SceneManager(scenes, "menu");
 
-	SceneManager* sceneManager = new SceneManager(scenes);
+	//SceneManager::currentScene = "menu";
 
 	while (glfwGetKey(renderer.window(), GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(renderer.window()) == 0) {
 

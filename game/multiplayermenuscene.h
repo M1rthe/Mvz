@@ -1,6 +1,9 @@
 #ifndef MULTIPLAYERMENUSCENE_H
 #define MULTIPLAYERMENUSCENE_H
 
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <mvz/scene.h>
 #include <mvz/button.h>
 #include <mvz/entityempty.h>
@@ -22,9 +25,6 @@ private:
 	void createServer();
 	void joinServer();
 	void goBack();
-
-	Server* server;
-	Client* client;
 
 	bool isHosting = false;
 	bool isJoinig = false;

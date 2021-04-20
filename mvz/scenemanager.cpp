@@ -1,7 +1,11 @@
 #include <mvz/scenemanager.h>
 
-SceneManager::SceneManager(std::map<std::string, Scene*> scenesP) {
-	scenes = scenesP;
+std::string SceneManager::currentScene;
+std::map<std::string, Scene*> SceneManager::scenes;
+
+SceneManager::SceneManager(std::map<std::string, Scene*> _scenes, std::string _current) {
+	scenes = _scenes;
+	currentScene = _current;
 }
 
 SceneManager::~SceneManager() {
@@ -18,12 +22,18 @@ void SceneManager::run(Renderer renderer) {
 	Singleton<Input>::instance()->updateInput(renderer.window());
 
 	//Update Camera
-	scenes[globals.currentScene]->camera->updateViewMatrix(renderer.window());
+	scenes[currentScene]->camera->updateViewMatrix(renderer.window());
 
 	//Update entities
-	scenes[globals.currentScene]->updateScene();
+	scenes[currentScene]->updateScene();
 
 	//Render entity sprites
-	renderer.renderScene(scenes[globals.currentScene]);
+	renderer.renderScene(scenes[currentScene]);
+}
+
+void SceneManager::switchScene(std::string scene)
+{
+	SceneManager::currentScene = scene;
+	SceneManager::scenes[scene]->onLoad();
 }
 
